@@ -1,6 +1,13 @@
 # YZ-Akademisi-Grup.58
 
-Yapay Zeka Destekli Kişisel Çalışma Arkadaşı
+<div align="center">
+  
+<img  width="200" height="200" alt="KÖPRÜ" src="https://github.com/user-attachments/assets/013960d6-3532-46fa-923c-ff74a6d78bb8" />
+
+
+</div>
+
+## Yapay Zeka Destekli Kişisel Çalışma Arkadaşı
 
 ## Takım İsmi
 
@@ -8,7 +15,8 @@ Köprü
 
 ## Takım Üyeleri
 
-<table>
+<div align="center">
+  <table>
   <thead>
     <tr>
       <th align="center">Profil</th>
@@ -80,6 +88,9 @@ Köprü
     </tr>
   </tbody>
 </table>
+</div>
+  
+
 
 
 ## Ürün Açıklaması 
