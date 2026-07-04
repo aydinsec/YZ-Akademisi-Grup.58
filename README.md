@@ -117,3 +117,53 @@ LGS, YKS, KPSS veya ALES gibi yüksek rekabetli sınavlara hazırlanan, günde o
 
 ### 2. Uzaktan/Hibrit Çalışan Yazılımcılar ve Dijital Profesyoneller (20-45 Yaş)
 Başta yazılım mühendisleri ve junior geliştiriciler olmak üzere, gün boyu web tarayıcısı ve kod editörleri arasında mekik dokuyan, iş akışını (flow) koruması gereken uzaktan çalışan profesyoneller.
+
+
+
+<details>
+  <summary><h2>Sprint 1</h2></summary>
+  
+# 🎯 Sprint 1 Değerlendirme Raporu (Sprint Review & Retrospective)
+
+**Sprint Hedefi:** Projenin teorik altyapısının tesis edilmesi, yapay zeka tabanlı çözüm yaklaşımlarının teknik fizibilite analizi ve uygun bilgisayarlı görü veri setlerinin (dataset) belirlenmesi.
+
+## Bölüm 1: Sprint Review (Süreç Çıktıları ve Analiz)
+
+### 🚀 Tamamlanan İş Paketleri ve Çıktılar
+
+* **Literatür Taraması ve Pazar Analizi:** Odaklanma stratejileri (deep work), Pomodoro tekniği ve dikkat takibi (attention tracking) üzerine mevcut ticari uygulamaların ve akademik literatürün incelenmesi tamamlanmıştır. Minimum Uygulanabilir Ürün (MVP) kapsamında yer alması gereken temel yetsterler netleştirilmiştir.
+* **Teknik Mimari ve Altyapı Araştırması:** GitHub platformundaki açık kaynaklı göz takip (eye-tracking) ve yorgunluk/uyku tespiti algoritmaları incelenmiştir. Proje gereksinimlerine uygun olabilecek bilgisayarlı görü kütüphanelerinin (örn. *OpenCV, MediaPipe, Dlib*) performans metrikleri, entegrasyon kolaylıkları, avantaj ve dezavantajları dokümante edilmiştir.
+* **Veri Seti (Dataset) Analizi ve Seçimi:** Yapay zeka modelinin eğitimi ve test süreçlerinde kullanılmak üzere, yüz mimikleri ve göz durumu referans verilerini içeren veri setleri literatür üzerinden taranmış ve projenin kapsamına en uygun olanlar filtrelenmiştir.
+
+### 💡 Mevcut Durum Değerlendirmesi ve Gelecek Planlaması
+
+* **Durum Tespiti:** Araştırma, mimari tasarım ve teorik analiz fazı (Faz 0) başarıyla tamamlanmıştır. Projenin teknik geliştirme ve kodlama (implementasyon) aşamasına ivedilikle geçilmesi kararlaştırılmıştır.
+* **Gelecek Sprint (Sprint 2) Hedefleri:** Proje deposunun (repository) oluşturulması, seçilen temel kütüphanelerin çalışma ortamına entegrasyonu ve prototip seviyesinde kameradan anlık görüntü işleme (video stream processing) testlerinin gerçekleştirilmesi.
+
+---
+
+## Bölüm 2: Sprint Retrospective (Süreç ve Takım Dinamikleri)
+
+### 📊 Sprint Performans Analizi
+
+| İnceleme Alanı | Gözlem / Durum Tespiti | Projeye Etkisi |
+| :--- | :--- | :--- |
+| **Kriz Yönetimi ve İletişim** | Asenkron platformlarda (Discord, Slack vb.) yaşanan iletişim darboğazı tespit edilmiş, daha hızlı ve senkron iletişim sunan kanallara geçiş yapılarak kriz büyümeden çözülmüştür. | Takım İçi İletişim Optimizasyonu |
+| **Ekip İçi Sinerji** | Aktif efor sarf eden proje üyeleri arasında görev dağılımı efektif bir şekilde gerçekleştirilmiş; literatür ve teknik repo analizleri uyum içinde tamamlanmıştır. | Üretkenlik ve Araştırma Çıktısı |
+| **Kaynak Yönetimi** | Takım içi efor dağılımında asimetri gözlemlenmiştir. Aktif katılım göstermeyen üyelerin varlığı, aktif üyeler üzerindeki operasyonel yükü artırmaktadır. | Kapasite ve Hız (Velocity) Darboğazı |
+| **Geliştirme Hızı** | Araştırma (R&D) fazının öngörülenden uzun sürmesi (Analysis Paralysis), somut prototipleme aşamasına geçişi geciktirmiştir. | Proje Takvimi |
+
+### 🛠️ Aksiyon Planı (Start / Stop / Continue Metodolojisi)
+
+#### 🟢 Başla (Start)
+* **Kodlamaya Geçiş:** Teorik araştırma fazını dondurarak, ilk prototip kodlarının ve temel donanım izinlerinin (kamera erişimi API'leri) yazımına ivedilikle başlanması.
+* **İzole Görev Dağılımı:** Katılım seviyesi ve devamlılığı düşük olan takım üyelerine projenin ana mimarisini (Core) bloklamayacak, bağımsız ve izole modüllerin (UI bileşen tasarımı, README/Dokümantasyon yazımı vb.) atanması ve projenin kritik yolunun (Critical Path) güvenceye alınması.
+
+#### 🔴 Bırak (Stop)
+* **Sonsuz Optimizasyon Arayışı:** Kusursuz veri setini veya modeli bulma arayışının sonlandırılarak, literatürde kabul gören geçerli referanslardan biriyle prototipleme sürecine başlanması.
+* **Gerçekçi Olmayan Kapasite Beklentisi:** Kaynak planlamasının kağıt üzerindeki kişi sayısı üzerinden değil, mevcut aktif kapasite üzerinden gerçekçi bir şekilde yeniden revize edilmesi.
+
+#### 🔵 Devam Et (Continue)
+* **Çevik İletişim:** Ekip içi çevik karar alma süreçlerini destekleyen mevcut hızlı anlık mesajlaşma kanallarının efektif ve çözüm odaklı bir şekilde kullanımına devam edilmesi.
+
+</details>
