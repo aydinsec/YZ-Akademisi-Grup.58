@@ -122,6 +122,8 @@ Başta yazılım mühendisleri ve junior geliştiriciler olmak üzere, gün boyu
 
 <details>
   <summary><h2>Sprint 1</h2></summary>
+
+  * **Daily Scrum:** [Sprint 1 Daily Scrum](https://github.com/aydinsec/YZ-Akademisi-Grup.58/tree/main/Project_Management_Files/SPRINT_1/daily_scrum_s1)
   
 # 🎯 Sprint 1 Raporu (Review & Retrospective)
 
