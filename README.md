@@ -123,47 +123,36 @@ Başta yazılım mühendisleri ve junior geliştiriciler olmak üzere, gün boyu
 <details>
   <summary><h2>Sprint 1</h2></summary>
   
-# 🎯 Sprint 1 Değerlendirme Raporu (Sprint Review & Retrospective)
+# 🎯 Sprint 1 Raporu (Review & Retrospective)
 
-**Sprint Hedefi:** Projenin teorik altyapısının tesis edilmesi, yapay zeka tabanlı çözüm yaklaşımlarının teknik fizibilite analizi ve uygun bilgisayarlı görü veri setlerinin (dataset) belirlenmesi.
+**Sprint Hedefi:** Teorik altyapının kurulması, yapay zeka fizibilite analizi ve uygun veri setlerinin (dataset) belirlenmesi.
 
-## Bölüm 1: Sprint Review (Süreç Çıktıları ve Analiz)
+## 1. Sprint Review (İnceleme)
 
-### 🚀 Tamamlanan İş Paketleri ve Çıktılar
+**✅ Tamamlanan İşler:**
+* **Literatür ve Pazar Analizi:** Odaklanma (deep work) uygulamaları incelendi ve MVP (Minimum Uygulanabilir Ürün) özellikleri netleştirildi.
+* **Teknik Altyapı:** Göz takip ve uyku tespiti için açık kaynaklı kütüphaneler (OpenCV, MediaPipe vb.) analiz edildi.
+* **Veri Seti Seçimi:** Model eğitimi için gerekli olan yüz/göz referans veri setleri taranıp filtrelendi.
 
-* **Literatür Taraması ve Pazar Analizi:** Odaklanma stratejileri (deep work), Pomodoro tekniği ve dikkat takibi (attention tracking) üzerine mevcut ticari uygulamaların ve akademik literatürün incelenmesi tamamlanmıştır. Minimum Uygulanabilir Ürün (MVP) kapsamında yer alması gereken temel yetsterler netleştirilmiştir.
-* **Teknik Mimari ve Altyapı Araştırması:** GitHub platformundaki açık kaynaklı göz takip (eye-tracking) ve yorgunluk/uyku tespiti algoritmaları incelenmiştir. Proje gereksinimlerine uygun olabilecek bilgisayarlı görü kütüphanelerinin (örn. *OpenCV, MediaPipe, Dlib*) performans metrikleri, entegrasyon kolaylıkları, avantaj ve dezavantajları dokümante edilmiştir.
-* **Veri Seti (Dataset) Analizi ve Seçimi:** Yapay zeka modelinin eğitimi ve test süreçlerinde kullanılmak üzere, yüz mimikleri ve göz durumu referans verilerini içeren veri setleri literatür üzerinden taranmış ve projenin kapsamına en uygun olanlar filtrelenmiştir.
-
-### 💡 Mevcut Durum Değerlendirmesi ve Gelecek Planlaması
-
-* **Durum Tespiti:** Araştırma, mimari tasarım ve teorik analiz fazı (Faz 0) başarıyla tamamlanmıştır. Projenin teknik geliştirme ve kodlama (implementasyon) aşamasına ivedilikle geçilmesi kararlaştırılmıştır.
-* **Gelecek Sprint (Sprint 2) Hedefleri:** Proje deposunun (repository) oluşturulması, seçilen temel kütüphanelerin çalışma ortamına entegrasyonu ve prototip seviyesinde kameradan anlık görüntü işleme (video stream processing) testlerinin gerçekleştirilmesi.
+**🚀 Sonraki Adımlar (Sprint 2):**
+Araştırma fazını dondurarak kodlamaya geçmek; proje reposunu oluşturup ilk kamera görüntüsü işleme prototipini başlatmak.
 
 ---
 
-## Bölüm 2: Sprint Retrospective (Süreç ve Takım Dinamikleri)
+## 2. Sprint Retrospective (Değerlendirme)
 
-### 📊 Sprint Performans Analizi
+**📊 Durum Tespiti ve Kriz Yönetimi:**
+* **İletişim:** Asenkron kanallarda (Discord/Slack) yaşanan yavaşlık tespit edilerek, anlık iletişim platformlarına (WP) geçiş yapıldı ve kriz çözüldü.
+* **Kapasite ve Efor:** 5 kişilik ekibin 3'ünün aktif olduğu gözlemlendi. Süreç, mevcut efor asimetrisine göre yeniden yapılandırıldı.
 
-| İnceleme Alanı | Gözlem / Durum Tespiti | Projeye Etkisi |
-| :--- | :--- | :--- |
-| **Kriz Yönetimi ve İletişim** | Asenkron platformlarda (Discord, Slack vb.) yaşanan iletişim darboğazı tespit edilmiş, daha hızlı ve senkron iletişim sunan kanallara geçiş yapılarak kriz büyümeden çözülmüştür. | Takım İçi İletişim Optimizasyonu |
-| **Ekip İçi Sinerji** | Aktif efor sarf eden proje üyeleri arasında görev dağılımı efektif bir şekilde gerçekleştirilmiş; literatür ve teknik repo analizleri uyum içinde tamamlanmıştır. | Üretkenlik ve Araştırma Çıktısı |
-| **Kaynak Yönetimi** | Takım içi efor dağılımında asimetri gözlemlenmiştir. Aktif katılım göstermeyen üyelerin varlığı, aktif üyeler üzerindeki operasyonel yükü artırmaktadır. | Kapasite ve Hız (Velocity) Darboğazı |
-| **Geliştirme Hızı** | Araştırma (R&D) fazının öngörülenden uzun sürmesi (Analysis Paralysis), somut prototipleme aşamasına geçişi geciktirmiştir. | Proje Takvimi |
-
-### 🛠️ Aksiyon Planı (Start / Stop / Continue Metodolojisi)
-
-#### 🟢 Başla (Start)
-* **Kodlamaya Geçiş:** Teorik araştırma fazını dondurarak, ilk prototip kodlarının ve temel donanım izinlerinin (kamera erişimi API'leri) yazımına ivedilikle başlanması.
-* **İzole Görev Dağılımı:** Katılım seviyesi ve devamlılığı düşük olan takım üyelerine projenin ana mimarisini (Core) bloklamayacak, bağımsız ve izole modüllerin (UI bileşen tasarımı, README/Dokümantasyon yazımı vb.) atanması ve projenin kritik yolunun (Critical Path) güvenceye alınması.
-
-#### 🔴 Bırak (Stop)
-* **Sonsuz Optimizasyon Arayışı:** Kusursuz veri setini veya modeli bulma arayışının sonlandırılarak, literatürde kabul gören geçerli referanslardan biriyle prototipleme sürecine başlanması.
-* **Gerçekçi Olmayan Kapasite Beklentisi:** Kaynak planlamasının kağıt üzerindeki kişi sayısı üzerinden değil, mevcut aktif kapasite üzerinden gerçekçi bir şekilde yeniden revize edilmesi.
-
-#### 🔵 Devam Et (Continue)
-* **Çevik İletişim:** Ekip içi çevik karar alma süreçlerini destekleyen mevcut hızlı anlık mesajlaşma kanallarının efektif ve çözüm odaklı bir şekilde kullanımına devam edilmesi.
+**🛠️ Aksiyon Planı (Start/Stop/Continue):**
+* **🟢 Başla (Start):** 
+  - İlk prototip kodlarını ve kamera izinlerini yazmaya ivedilikle başla.
+  - Pasif üyelere ana mimariyi bloklamayacak izole görevler (Arayüz tasarımı, README vb.) ata.
+* **🔴 Bırak (Stop):** 
+  - Sonsuz "en iyi veri setini/modeli bulma" arayışını (Analysis Paralysis) sonlandır.
+  - Planlamayı kağıt üzerindeki 5 kişiye göre değil, gerçekteki aktif 3 kişiye göre yapmayı kabul et.
+* **🔵 Devam Et (Continue):** 
+  - Karar alma süreçlerini hızlandıran anlık ve çevik iletişim kanallarını kullanmaya devam et.
 
 </details>
