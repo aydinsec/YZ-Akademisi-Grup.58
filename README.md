@@ -158,7 +158,7 @@ Araştırma fazını dondurarak kodlamaya geçmek; proje reposunu oluşturup ilk
   - Karar alma süreçlerini hızlandıran anlık ve çevik iletişim kanallarını kullanmaya devam et.
 
 # 🖼️ Ürün Son Durum Görselleri
-<br><br>
+<br>
 <div align="center">
 <a href="./Latest%20Product%20Screenshots/Sprint1.pdf" target="_blank">
  <img width="400" height="150" alt="image" src="https://github.com/user-attachments/assets/9792ba7e-e114-4c72-9c40-8ac0f269c10e" />
