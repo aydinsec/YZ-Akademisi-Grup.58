@@ -156,5 +156,6 @@ Araştırma fazını dondurarak kodlamaya geçmek; proje reposunu oluşturup ilk
   - Planlamayı kağıt üzerindeki 5 kişiye göre değil, gerçekteki aktif 3 kişiye göre yapmayı kabul et.
 * **🔵 Devam Et (Continue):** 
   - Karar alma süreçlerini hızlandıran anlık ve çevik iletişim kanallarını kullanmaya devam et.
-
+[![Proje Raporu](<img width="895" height="266" alt="image" src="https://github.com/user-attachments/assets/f64865c7-13b8-49bc-b483-c8054c30abe7" />
+)]()
 </details>
