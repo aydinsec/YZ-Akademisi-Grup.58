@@ -156,6 +156,13 @@ Araştırma fazını dondurarak kodlamaya geçmek; proje reposunu oluşturup ilk
   - Planlamayı kağıt üzerindeki 5 kişiye göre değil, gerçekteki aktif 3 kişiye göre yapmayı kabul et.
 * **🔵 Devam Et (Continue):** 
   - Karar alma süreçlerini hızlandıran anlık ve çevik iletişim kanallarını kullanmaya devam et.
-[![Proje Raporu](<img width="895" height="266" alt="image" src="https://github.com/user-attachments/assets/f64865c7-13b8-49bc-b483-c8054c30abe7" />
-)]()
+
+**🖼️ Ürün Son Durum Görselleri:**
+<br>
+<div align="center">
+<a href="./Latest%20Product%20Screenshots/Sprint1.pdf" target="_blank">
+ <img width="280" height="80" alt="image" src="https://github.com/user-attachments/assets/9792ba7e-e114-4c72-9c40-8ac0f269c10e" />
+</a>
+</div>
+    
 </details>
