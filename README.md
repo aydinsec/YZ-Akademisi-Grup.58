@@ -157,6 +157,7 @@ Araştırma fazını dondurarak kodlamaya geçmek; proje reposunu oluşturup ilk
 * **🔵 Devam Et (Continue):** 
   - Karar alma süreçlerini hızlandıran anlık ve çevik iletişim kanallarını kullanmaya devam et.
 
+
 ---
 
 ## 🖼️ Ürün Son Durum Görselleri
