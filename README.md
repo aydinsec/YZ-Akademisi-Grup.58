@@ -157,7 +157,9 @@ Araştırma fazını dondurarak kodlamaya geçmek; proje reposunu oluşturup ilk
 * **🔵 Devam Et (Continue):** 
   - Karar alma süreçlerini hızlandıran anlık ve çevik iletişim kanallarını kullanmaya devam et.
 
-# 🖼️ Ürün Son Durum Görselleri
+---
+
+## 🖼️ Ürün Son Durum Görselleri
 <br>
 <div align="center">
 <a href="./Latest%20Product%20Screenshots/Sprint1.pdf" target="_blank">
