@@ -161,11 +161,9 @@ Araştırma fazını dondurarak kodlamaya geçmek; proje reposunu oluşturup ilk
 ---
 
 ##  Sprint Board
-<div align.center>
+<div align="center">
   
-<img width="500" height="350" alt="board" src="https://github.com/user-attachments/assets/2d10a974-d0ff-4d16-b6e3-bace57823783" />
-
-
+<img width="750" height="500" alt="image" src="https://github.com/user-attachments/assets/768ca14a-0085-4b83-bb97-0bbfc927beb1" />
 </div>
 ---
 
@@ -175,6 +173,7 @@ Araştırma fazını dondurarak kodlamaya geçmek; proje reposunu oluşturup ilk
 <div align="center">
 <a href="./Latest%20Product%20Screenshots/Sprint1.pdf" target="_blank">
  <img width="400" height="150" alt="image" src="https://github.com/user-attachments/assets/9792ba7e-e114-4c72-9c40-8ac0f269c10e" />
+  
 </a>
 </div>
     
