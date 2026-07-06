@@ -160,11 +160,13 @@ Araştırma fazını dondurarak kodlamaya geçmek; proje reposunu oluşturup ilk
 
 ---
 
-##  Sprint Board
+##  Sprint Board Son Durumu
 <div align="center">
   
-<img width="750" height="500" alt="image" src="https://github.com/user-attachments/assets/768ca14a-0085-4b83-bb97-0bbfc927beb1" />
+<img width="750" height="500" alt="image" src="https://github.com/user-attachments/assets/f79ab30a-2215-416e-a65d-5ff1a68cdc7a" />
+
 </div>
+
 ---
 
 
