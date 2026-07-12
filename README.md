@@ -199,8 +199,8 @@ Araştırma fazını dondurarak kodlamaya geçmek; proje reposunu oluşturup ilk
 ## 🖼️ Ürün Son Durum Görselleri
 <br>
 <div align="center">
-<a href="./Latest%20Product%20Screenshots/Sprint1.pdf" target="_blank">
- <img width="400" height="150" alt="image"  src="https://github.com/aydinsec/YZ-Akademisi-Grup.58/blob/c9842d224e6511691384cf94c43a603958a1335c/Latest%20Product%20Screenshots/Sprint2.pdf" />
+<a href="./Latest%20Product%20Screenshots/Sprint2.pdf" target="_blank">
+  <img width="400" height="150" alt="image" src="https://github.com/user-attachments/assets/9792ba7e-e114-4c72-9c40-8ac0f269c10e" />
  
 </a>
 </div>
