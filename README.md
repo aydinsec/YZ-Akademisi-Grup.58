@@ -200,8 +200,8 @@ Araştırma fazını dondurarak kodlamaya geçmek; proje reposunu oluşturup ilk
 <br>
 <div align="center">
 <a href="./Latest%20Product%20Screenshots/Sprint2.pdf" target="_blank">
-  <img width="400" height="150" alt="image" src="https://github.com/user-attachments/assets/9792ba7e-e114-4c72-9c40-8ac0f269c10e" />
- 
+ <img width="523" height="156" alt="Ekran görüntüsü 2026-07-12 221123" src="https://github.com/user-attachments/assets/f3250878-5b7f-40f5-a1bf-da7d0b90db2b" />
+
 </a>
 </div>
     
