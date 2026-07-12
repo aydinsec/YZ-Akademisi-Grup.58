@@ -186,6 +186,43 @@ Araştırma fazını dondurarak kodlamaya geçmek; proje reposunu oluşturup ilk
 <details>
   <summary><h2>Sprint 2</h2></summary>
 
+# 🎯 Sprint 2 Raporu (Review & Retrospective)
+
+**Sprint Hedefi:** Kendi verimizle doğrulanmış uyku tespit modelini üretmek, gerçek zamanlı uyarı sistemini tamamlamak ve uygulamanın UI/UX tasarım temellerini atarak odak ekranının geliştirilmesine başlamak.
+
+## 1. Sprint Review (İnceleme)
+
+**✅ Tamamlanan İşler:**
+* **Model Eğitimi:** MRL Eye Dataset (~85.000 görüntü) ile göz açık/kapalı sınıflandıran CNN modeli eğitildi; eğitim sürecinde tespit edilen veri artırma (augmentation) hatası kök neden analiziyle çözüldü.
+* **Fine-Tuning ile Domain Uyarlaması:** Model, ekipçe toplanan özgün webcam verisiyle ince ayarlandı ve bağımsız 1.440 görüntülük test setinde **%88.89 doğruluk, %99.17 recall** elde etti (722 kapalı göz örneğinden yalnızca 6'sı kaçırıldı).
+* **Gerçek Zamanlı Uyarı Sistemi:** MediaPipe + CNN ile çok sinyalli tespit tamamlandı (göz kapalılığı + baş pozisyonu + yüz kaybı); 2 saniyeden uzun göz kapalılığında sesli (mp3) ve görsel alarm üretiliyor. Model dosyası bulunmadığında sistem EAR (Eye Aspect Ratio) yedek moduna otomatik geçiyor.
+* **Yanlış Alarm İyileştirmesi:** "Aşağı bakma" (deftere/klavyeye bakış) senaryosu test edildi; alarm kesintisiz 2 saniyelik kapalılık şartına bağlandığı için anlık yanlış sınıflandırmalar kullanıcıyı rahatsız etmiyor.
+* **Pomodoro (Odak Seansı) Ekranı Geliştirilmeye Başlandı:** Three.js ve TypeScript ile web ortamında dinamik bir 3D sahne oluşturuldu; dış kaynaklı 3D modeller animasyonlarla entegre edildi ve kullanıcının güneş açısını, gökyüzünü ve atmosferi gerçek zamanlı değiştirebildiği canlı ışıklandırma kontrolü geliştirildi.
+* **Tasarım Sistemi:** Uygulamanın görsel kimliği (renk paleti, tipografi, logo revizyonu) tamamlandı; odak seansı ekranı ve motivasyon/akvaryum sayfası (balık koleksiyonu konsepti) tasarımlarına başlandı, Figma üzerinden ortak çalışmaya açıldı.
+* **Araç Seti:** Tekrarlanabilir geliştirme hattı kuruldu: veri toplama (`veri_topla.py`), yerel fine-tuning (`ince_ayar.py`), metrik raporu (`degerlendir.py`) ve gerçek zamanlı sistem (`realtime_uyari.py`).
+
+---
+
+## 2. Sprint Retrospective (Değerlendirme)
+
+**📊 Durum Tespiti:**
+* **Süreç:** Sprint takibi ClickUp'a taşındı; görev sahipliği, durum takibi ve daily scrum yorumları kart bazında yürütülerek şeffaflık arttı.
+* **Kapasite:** Sprint 1 retrosundaki karar uygulandı; planlama aktif üyelere göre yapıldı ve tasarım/arayüz işleri ana mimariyi bloklamayan izole görevler olarak dağıtıldı.
+* **Teknik Öğrenme:** "Daha çok veri her zaman daha iyi model demek değildir." Harici bir aday veri seti kalite filtresini geçemediği için elendi; eğitim verisini 3 kat büyüten deneme bağımsız testte recall'u düşürdüğü için geri alındı.
+
+**🛠️ Aksiyon Planı (Start/Stop/Continue):**
+* **🟢 Başla (Start):**
+  - Uyku tespit modelinin web'e taşınması (TensorFlow.js) için teknik hazırlığa başla — 3D pomodoro sahnesiyle aynı web ortamında buluşacaklar.
+  - Ekip üyelerinden çok kullanıcılı test verisi toplamaya başla.
+* **🔴 Bırak (Stop):**
+  - Test setine elle veri eklemeyi bırak; test seti "mühürlü" kalmalı ki sprint boyunca ölçümler karşılaştırılabilir olsun.
+  - Ölçüm yapmadan model/veri değişikliği yapmayı bırak.
+* **🔵 Devam Et (Continue):**
+  - Her model değişikliğini bağımsız test setiyle ölçüp karar vermeye devam et.
+  - Görsel veri kontrolü (örnek ızgaraları, sağlık kontrolleri) pratiğine devam et.
+
+---
+
 ##  Sprint Board Son Durumu
 <div align="center">
   
