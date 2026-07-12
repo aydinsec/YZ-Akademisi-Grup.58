@@ -200,7 +200,7 @@ Araştırma fazını dondurarak kodlamaya geçmek; proje reposunu oluşturup ilk
 <br>
 <div align="center">
 <a href="./Latest%20Product%20Screenshots/Sprint1.pdf" target="_blank">
- <img width="400" height="150" alt="image"  src="Latest Product Screenshots/Sprint2.pdf" />
+ <img width="400" height="150" alt="image"  src="[Latest Product Screenshots/Sprint2.pdf](https://github.com/aydinsec/YZ-Akademisi-Grup.58/blob/main/Latest%20Product%20Screenshots/Sprint2.pdf)" />
  
 </a>
 </div>
