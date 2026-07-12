@@ -180,3 +180,52 @@ Araştırma fazını dondurarak kodlamaya geçmek; proje reposunu oluşturup ilk
 </div>
     
 </details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<details>
+  <summary><h2>Sprint 2</h2></summary>
+
+##  Sprint Board Son Durumu
+<div align="center">
+  
+<img width="750" height="500" alt="image"  src="https://github.com/user-attachments/assets/d781ae44-14b2-4446-8578-86a1331604ce" />
+
+</div>
+
+---
+
+
+## 🖼️ Ürün Son Durum Görselleri
+<br>
+<div align="center">
+<a href="./Latest%20Product%20Screenshots/Sprint1.pdf" target="_blank">
+ <img width="400" height="150" alt="image"  src="https://github.com/user-attachments/assets/9c622af7-aec8-4c7e-80ec-7c2370704be3" />
+ 
+</a>
+</div>
+    
+</details>
+
