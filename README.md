@@ -183,35 +183,13 @@ Araştırma fazını dondurarak kodlamaya geçmek; proje reposunu oluşturup ilk
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <details>
   <summary><h2>Sprint 2</h2></summary>
 
 ##  Sprint Board Son Durumu
 <div align="center">
   
-<img width="750" height="500" alt="image"  src="https://github.com/user-attachments/assets/d781ae44-14b2-4446-8578-86a1331604ce" />
+<img width="1000" height="400" alt="image"  src="https://github.com/user-attachments/assets/d781ae44-14b2-4446-8578-86a1331604ce" />
 
 </div>
 
