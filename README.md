@@ -198,7 +198,7 @@ Araştırma fazını dondurarak kodlamaya geçmek; proje reposunu oluşturup ilk
 * **Gerçek Zamanlı Uyarı Sistemi:** MediaPipe + CNN ile çok sinyalli tespit tamamlandı (göz kapalılığı + baş pozisyonu + yüz kaybı); 2 saniyeden uzun göz kapalılığında sesli (mp3) ve görsel alarm üretiliyor. Model dosyası bulunmadığında sistem EAR (Eye Aspect Ratio) yedek moduna otomatik geçiyor.
 * **Yanlış Alarm İyileştirmesi:** "Aşağı bakma" (deftere/klavyeye bakış) senaryosu test edildi; alarm kesintisiz 2 saniyelik kapalılık şartına bağlandığı için anlık yanlış sınıflandırmalar kullanıcıyı rahatsız etmiyor.
 * **Pomodoro (Odak Seansı) Ekranı Geliştirilmeye Başlandı:** Three.js ve TypeScript ile web ortamında dinamik bir 3D sahne oluşturuldu; dış kaynaklı 3D modeller animasyonlarla entegre edildi ve kullanıcının güneş açısını, gökyüzünü ve atmosferi gerçek zamanlı değiştirebildiği canlı ışıklandırma kontrolü geliştirildi.
-* **Tasarım Sistemi:** Uygulamanın görsel kimliği (renk paleti, tipografi, logo revizyonu) tamamlandı; odak seansı ekranı ve motivasyon/akvaryum sayfası (balık koleksiyonu konsepti) tasarımlarına başlandı, Figma üzerinden ortak çalışmaya açıldı.
+* **Tasarım Sistemi:** Uygulamanın görsel kimliği (renk paleti, tipografi, logo revizyonu) tamamlandı; Oyunlaştırma kapsamına kullanılacak olan modellemeler seçildi ve ana hattı tamamlandı. Odak seansı ekranı ve motivasyon/akvaryum sayfası (balık koleksiyonu konsepti) tasarımlarına başlandı.
 * **Araç Seti:** Tekrarlanabilir geliştirme hattı kuruldu: veri toplama (`veri_topla.py`), yerel fine-tuning (`ince_ayar.py`), metrik raporu (`degerlendir.py`) ve gerçek zamanlı sistem (`realtime_uyari.py`).
 
 ---
