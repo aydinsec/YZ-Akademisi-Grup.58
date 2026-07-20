@@ -238,13 +238,15 @@ Araştırma fazını dondurarak kodlamaya geçmek; proje reposunu oluşturup ilk
 <div align="center">
 <a href="./Latest%20Product%20Screenshots/Sprint2.pdf" target="_blank">
  <img width="523" height="156" alt="Ekran görüntüsü 2026-07-12 221123" src="https://github.com/user-attachments/assets/f3250878-5b7f-40f5-a1bf-da7d0b90db2b" />
-
 </a>
 </div>
+    
+</details>
+
 
 
 <details>
-  <summary><h2>Sprint 3</h2></summary>
+  <summary><h2>Sprint 2</h2></summary>
 
   * **Daily Scrum:** [Sprint 3 Daily Scrum](Project_Management_Files/SPRINT_3/daily_scrum_s3)
 
