@@ -246,7 +246,7 @@ Araştırma fazını dondurarak kodlamaya geçmek; proje reposunu oluşturup ilk
 
 
 <details>
-  <summary><h2>Sprint 2</h2></summary>
+  <summary><h2>Sprint 3</h2></summary>
 
   * **Daily Scrum:** [Sprint 3 Daily Scrum](Project_Management_Files/SPRINT_3/daily_scrum_s3)
 
@@ -293,8 +293,7 @@ Sprint 2'de ayrı geliştirilen 3D pomodoro sahnesinin (Three.js) uygulamayla bi
 ## Sprint Board Son Durumu
 <div align="center">
 
-<img width="750" height="500" alt="Sprint 3 Board" src="BOARD_GORSELI_LINKI_BURAYA" />
-
+<img width="1760" height="1010" alt="Image" src="https://github.com/user-attachments/assets/cd52a44c-425e-4730-a9fe-a0fd1462c553" />
 </div>
 
 ---
