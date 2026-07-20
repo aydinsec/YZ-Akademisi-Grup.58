@@ -241,6 +241,72 @@ Araştırma fazını dondurarak kodlamaya geçmek; proje reposunu oluşturup ilk
 
 </a>
 </div>
+
+
+<details>
+  <summary><h2>Sprint 3</h2></summary>
+
+  * **Daily Scrum:** [Sprint 3 Daily Scrum](Project_Management_Files/SPRINT_3/daily_scrum_s3)
+
+# 🎯 Sprint 3 Raporu (Review & Retrospective)
+
+**Sprint Hedefi:** Tasarımları çalışan bir web uygulamasına dönüştürmek — kayıt/giriş, görev yönetimi, tarayıcıda kamera takibi ve oyunlaştırma sistemini uçtan uca çalışır hale getirmek.
+
+## 1. Sprint Review (İnceleme)
+
+**✅ Tamamlanan İşler:**
+* **Tasarımların Tamamlanması:** Kullanıcı akış şeması (onboarding → seans → ödül döngüsü) ile Kayıt/Giriş ve Ana Ekran tasarımları bitirildi.
+* **Uygulama Ekranları Koda Döküldü:** UI/UX tasarımlarının tamamı geliştirildi; uygulama 8 çalışan ekrana sahip: Giriş, Ana Sayfa, Odak Modu, Görevler, İstatistikler, Yakalamalarım, Ayarlar, Profil.
+* **Kayıt ve Giriş Sistemi:** Kullanıcılar hesap oluşturup uygulamaya giriş yapabiliyor.
+* **Görev Yönetimi (MVP):** Görev ekleme, düzenleme, silme ve filtreleme işlevleri tamamlandı.
+* **Uyku Tespit Sisteminin Web'e Taşınması:** Sprint 2'de masaüstünde çalışan yapay zeka destekli uyku tespiti tarayıcıya taşındı; kamera takibi odak seansıyla bütünleşik çalışıyor.
+* **Canlı Kamera Ayarları:** Kamera seçimi, EAR hassasiyeti ile uyarı/yüz kaybı eşikleri arayüzden gerçek zamanlı ayarlanabiliyor — farklı ışık koşullarına kod değişikliği olmadan uyum sağlanıyor.
+* **Oyunlaştırma Sistemi:** Pomodoro süresine göre otomatik balık ödülü (92 balıklık genişletilebilir katalog), XP/seviye sistemi, rozetler ve koleksiyon ekranı ("Yakalamalarım") hayata geçirildi.
+* **Sprint Sonu Demo + GitHub Güncellemesi:** Tüm modüller uçtan uca denendi; kod ve dokümantasyon repoya yüklendi.
+
+**🚀 Sonraki Adımlar (Sprint 4):**
+Sprint 2'de ayrı geliştirilen 3D pomodoro sahnesinin (Three.js) uygulamayla birleştirilmesi; kullanıcı + görev veritabanı şemasının tamamlanması; çok kullanıcılı gerçek testler (ekipten test verisi toplama + uçtan uca deneme); deneyim detaylarının eklenmesi (ambiyans deniz sesi, hatırlatıcı bildirimlerin gerçekten tetiklenmesi).
+
+---
+
+## 2. Sprint Retrospective (Değerlendirme)
+
+**📊 Durum Tespiti:**
+* **Hız:** Sprintin ana hedefi (çalışan web uygulaması) planlanandan geniş kapsamla tamamlandı; tasarım → kod geçişi, Sprint 2'de tasarım sisteminin hazır olması sayesinde hızlı ilerledi.
+* **İş Bölümü:** Yapay zeka entegrasyonu ve oyunlaştırma ile arayüz geliştirme ayrı üyeler tarafından paralel yürütüldü; ClickUp üzerinden görev sahipliği net kaldı.
+* **Teknik Borç:** 3D pomodoro sahnesi ile ana uygulama ayrı ortamlarda geliştirildi; birleştirme işi bilinçli olarak Sprint 4'e planlandı. Veritabanı şeması da MVP sonrasına ertelendi.
+
+**🛠️ Aksiyon Planı (Start/Stop/Continue):**
+* **🟢 Başla (Start):**
+  - Gerçek kullanıcılarla uçtan uca test seanslarına başla (çok kullanıcılı test).
+  - 3D sahne ile uygulamanın birleştirilmesine sprint başında başla — en riskli entegrasyon işi sona bırakılmamalı.
+* **🔴 Bırak (Stop):**
+  - Aynı özelliğin iki ayrı ortamda paralel geliştirilmesini bırak; yeni işler doğrudan ana uygulama içinde geliştirilmeli.
+* **🔵 Devam Et (Continue):**
+  - Model değişikliklerini bağımsız test setiyle ölçüp karar vermeye devam et.
+  - Sprint sonu demo + GitHub güncellemesini sabit görev olarak sürdür.
+
+---
+
+## Sprint Board Son Durumu
+<div align="center">
+
+<img width="750" height="500" alt="Sprint 3 Board" src="BOARD_GORSELI_LINKI_BURAYA" />
+
+</div>
+
+---
+
+## 🖼️ Ürün Son Durum Görselleri
+<br>
+<div align="center">
+<a href="./Latest%20Product%20Screenshots/Sprint3.pdf" target="_blank">
+ <img width="400" height="150" alt="Sprint 3 Görselleri" src="https://github.com/aydinsec/YZ-Akademisi-Grup.58/blob/3145f57dbbc92b91003f9aa0482149434dcb16c4/Latest%20Product%20Screenshots/Sprint%203.pdf" />
+
+</a>
+</div>
+
+</details>
     
 </details>
 
