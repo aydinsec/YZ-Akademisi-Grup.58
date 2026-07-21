@@ -303,7 +303,7 @@ Sprint 2'de ayrı geliştirilen 3D pomodoro sahnesinin (Three.js) uygulamayla bi
 <br>
 <div align="center">
   
-<a href="./Latest%20Product%20Screenshots/Sprint3.pdf" target="_blank">
+<a href="./Latest%20Product%20Screenshots/Sprint 3.pdf" target="_blank">
   <img width="770" height="232" alt="Image" src="https://github.com/user-attachments/assets/e98ef505-0371-4624-84b7-8d30d0256db0" />
 
 
