@@ -248,13 +248,13 @@ Araştırma fazını dondurarak kodlamaya geçmek; proje reposunu oluşturup ilk
 <details>
   <summary><h2>Sprint 3</h2></summary>
 
-  * **Daily Scrum:** [Sprint 3 Daily Scrum](Project_Management_Files/SPRINT_3/daily_scrum_s3)
+ <!-- * **Daily Scrum:** [Sprint 3 Daily Scrum](Project_Management_Files/SPRINT_3/daily_scrum_s3) -->
 
 # 🎯 Sprint 3 Raporu (Review & Retrospective)
 
 **Sprint Hedefi:** Tasarımları çalışan bir web uygulamasına dönüştürmek — kayıt/giriş, görev yönetimi, tarayıcıda kamera takibi ve oyunlaştırma sistemini uçtan uca çalışır hale getirmek.
 
-## 1. Sprint Review (İnceleme)
+## 3. Sprint Review (İnceleme)
 
 **✅ Tamamlanan İşler:**
 * **Tasarımların Tamamlanması:** Kullanıcı akış şeması (onboarding → seans → ödül döngüsü) ile Kayıt/Giriş ve Ana Ekran tasarımları bitirildi.
@@ -293,7 +293,8 @@ Sprint 2'de ayrı geliştirilen 3D pomodoro sahnesinin (Three.js) uygulamayla bi
 ## Sprint Board Son Durumu
 <div align="center">
 
-<img width="1760" height="1010" alt="Image" src="https://github.com/user-attachments/assets/cd52a44c-425e-4730-a9fe-a0fd1462c553" />
+<img width="1760" height="1010" alt="Image"  src="https://github.com/user-attachments/assets/c86c8abf-5fb9-4c65-b8d0-2608379ed9fb" />
+
 </div>
 
 ---
@@ -301,8 +302,10 @@ Sprint 2'de ayrı geliştirilen 3D pomodoro sahnesinin (Three.js) uygulamayla bi
 ## 🖼️ Ürün Son Durum Görselleri
 <br>
 <div align="center">
+  
 <a href="./Latest%20Product%20Screenshots/Sprint3.pdf" target="_blank">
-  <img width="770" height="232" alt="Image" src="https://github.com/user-attachments/assets/2a2cea11-0054-4c8b-be9a-306e13c2eb90" />
+  <img width="770" height="232" alt="Image" src="https://github.com/user-attachments/assets/e98ef505-0371-4624-84b7-8d30d0256db0" />
+
 
 </a>
 </div>
