@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useApp } from "../state/AppContext.jsx";
 import Modal from "../components/Modal.jsx";
 import { Storage } from "../utils/storage.js";
 import { MODE_META } from "../utils/config.js";
-import { iso, fmtMin, trDate } from "../utils/helpers.js";
+import { iso, fmtMin, trDate, readAvatar } from "../utils/helpers.js";
 
 function streak(sessions) {
   const days = new Set(sessions.map((s) => s.date));
@@ -14,10 +14,11 @@ function streak(sessions) {
 }
 
 export default function Profile({ setCurrentPage }) {
-  const { get, set, profile, rev, toast, quoteIdx, C } = useApp();
+  const { get, set, profile, setAvatar, rev, toast, quoteIdx, motivasyon, t, C } = useApp();
   void rev;
   const [editOpen, setEditOpen] = useState(false);
   const [nameVal, setNameVal] = useState("");
+  const fileRef = useRef(null);
 
   const p = profile();
   const sessions = get("sessions", []);
@@ -40,13 +41,28 @@ export default function Profile({ setCurrentPage }) {
     { t: "Usta Kaptan", d: "20 seans tamamla.", ic: "i-crown", col: "#8b7fd1", ok: sessions.length >= 20 },
   ];
 
+  /* Profil fotoğrafı seçimi — dosya seç, küçült, kaydet */
+  const pickAvatar = () => fileRef.current && fileRef.current.click();
+  const onAvatarFile = async (e) => {
+    const f = e.target.files && e.target.files[0];
+    e.target.value = "";
+    if (!f) return;
+    try {
+      const dataUrl = await readAvatar(f);
+      setAvatar(dataUrl);
+      toast(t("Profil fotoğrafı güncellendi 📷"));
+    } catch {
+      toast("Fotoğraf okunamadı, başka bir dosya dene.");
+    }
+  };
+
   const saveName = () => {
-    if (!nameVal.trim()) { toast("İsim boş olamaz"); return; }
+    if (!nameVal.trim()) { toast(t("İsim boş olamaz")); return; }
     const pp = profile();
     pp.name = nameVal.trim();
     set("profile", pp);
     setEditOpen(false);
-    toast("Profil güncellendi");
+    toast(t("Profil güncellendi"));
   };
 
   const exportData = () => {
@@ -55,44 +71,46 @@ export default function Profile({ setCurrentPage }) {
     a.download = "kopru-" + Storage.user.replace(/[^a-z0-9]/g, "_") + ".json";
     a.click();
     URL.revokeObjectURL(a.href);
-    toast("Verilerin dışa aktarıldı 📦");
+    toast(t("Verilerin dışa aktarıldı 📦"));
   };
 
   return (
     <section className="page" id="page-profile">
+      <input ref={fileRef} type="file" accept="image/*" style={{ display: "none" }} onChange={onAvatarFile} />
+
       <div className="card prof-head">
         <div className="prof-id">
           <div className="prof-av">
-            <img src="assets/img/avatar.png" alt="Profil fotoğrafı" />
-            <button aria-label="Fotoğrafı değiştir" onClick={() => toast("Profil fotoğrafı yükleme yakında 📷")}>
+            <img src={p.avatar || "assets/img/avatar.png"} alt="Profil fotoğrafı" />
+            <button aria-label={t("Profil fotoğrafını değiştir")} title={t("Profil fotoğrafını değiştir")} onClick={pickAvatar}>
               <svg width="18" height="18"><use href="#i-camera" /></svg>
             </button>
           </div>
           <div>
             <div className="prof-name">
               <span>{p.name}</span>{" "}
-              <button onClick={() => { setNameVal(p.name); setEditOpen(true); }} aria-label="İsmi düzenle">
+              <button onClick={() => { setNameVal(p.name); setEditOpen(true); }} aria-label={t("Profil Bilgilerini Düzenle")}>
                 <svg width="17" height="17"><use href="#i-pencil" /></svg>
               </button>
             </div>
-            <div className="prof-sub">Odak yolculuğunda ilerlemeye devam et.</div>
+            <div className="prof-sub">{t("Odak yolculuğunda ilerlemeye devam et.")}</div>
             <div className="lvl-row">
-              <span className="lv">Seviye {p.level}</span>
+              <span className="lv">{t("Seviye")} {p.level}</span>
               <div className="bar"><i style={{ width: pct }}></i></div>
               <span className="xp">{p.xp} / {p.xpMax} XP</span>
             </div>
             <div className="title-chip">
               <div className="ic"><svg width="18" height="18"><use href="#i-anchor" /></svg></div>
-              <div><div className="t">{title}</div><div className="d">Odaklandıkça unvanın yükselir.</div></div>
+              <div><div className="t">{t(title)}</div><div className="d">{t("Odaklandıkça unvanın yükselir.")}</div></div>
             </div>
           </div>
         </div>
         <div className="prof-facts">
-          <div className="fact"><span className="k">Üye olma tarihi</span><span className="v">{trDate(p.joined)}</span></div>
-          <div className="fact"><span className="k">Toplam odak süresi</span><span className="v">{fmtMin(totMin)}</span></div>
-          <div className="fact"><span className="k">Tamamlanan seans</span><span className="v">{sessions.length}</span></div>
+          <div className="fact"><span className="k">{t("Üye olma tarihi")}</span><span className="v">{trDate(p.joined)}</span></div>
+          <div className="fact"><span className="k">{t("Toplam odak süresi")}</span><span className="v">{fmtMin(totMin)}</span></div>
+          <div className="fact"><span className="k">{t("Tamamlanan seans")}</span><span className="v">{sessions.length}</span></div>
           <div className="fact">
-            <span className="k">Yakalanan balık</span>
+            <span className="k">{t("Yakalanan balık")}</span>
             <span className="v">{fish.length}
               <button className="link" style={{ display: "flex" }} onClick={() => setCurrentPage("catches")}>
                 <svg width="15" height="15" style={{ color: "var(--muted2)" }}><use href="#i-chev-r" /></svg>
@@ -105,53 +123,53 @@ export default function Profile({ setCurrentPage }) {
       <div className="grid2">
         <div>
           <div className="card">
-            <div className="card-h"><div className="l">Odak Yolculuğun</div></div>
+            <div className="card-h"><div className="l">{t("Odak Yolculuğun")}</div></div>
             <div className="journey">
               <div className="jitem">
                 <div className="ico" style={{ background: "var(--blue-soft)", color: "var(--teal)" }}><svg width="18" height="18"><use href="#i-clock" /></svg></div>
-                <div><div className="k">Toplam Odak Süresi</div><div className="v">{fmtMin(totMin)}</div></div>
+                <div><div className="k">{t("Toplam Odak Süresi")}</div><div className="v">{fmtMin(totMin)}</div></div>
               </div>
               <div className="jitem">
                 <div className="ico" style={{ background: "var(--green-soft)", color: "var(--green)" }}><svg width="18" height="18"><use href="#i-target" /></svg></div>
-                <div><div className="k">Tamamlanan Seans</div><div className="v">{sessions.length}</div></div>
+                <div><div className="k">{t("Tamamlanan Seans")}</div><div className="v">{sessions.length}</div></div>
               </div>
               <div className="jitem">
                 <div className="ico" style={{ background: "var(--orange-soft)", color: "var(--orange)" }}><svg width="18" height="18"><use href="#i-flame" /></svg></div>
-                <div><div className="k">En Uzun Seri</div><div className="v">{streak(sessions)} gün</div></div>
+                <div><div className="k">{t("En Uzun Seri")}</div><div className="v">{streak(sessions)} {t("gün")}</div></div>
               </div>
               <div className="jitem">
                 <div className="ico" style={{ background: "var(--blue-soft)", color: "var(--teal)" }}><svg width="18" height="18"><use href="#i-waves" /></svg></div>
-                <div><div className="k">Ortalama Seans</div><div className="v">{sessions.length ? fmtMin(totMin / sessions.length) : "0dk"}</div></div>
+                <div><div className="k">{t("Ortalama Seans")}</div><div className="v">{sessions.length ? fmtMin(totMin / sessions.length) : "0dk"}</div></div>
               </div>
             </div>
           </div>
 
           <div className="card" style={{ marginTop: "24px" }}>
             <div className="card-h">
-              <div className="l">Başarılarım</div>
-              <button className="link" onClick={() => toast(badges.filter((b) => b.ok).length + " / " + badges.length + " rozet kazandın!")}>Tümünü Gör</button>
+              <div className="l">{t("Başarılarım")}</div>
+              <button className="link" onClick={() => toast(badges.filter((b) => b.ok).length + " / " + badges.length + " 🏅")}>{t("Tümünü Gör")}</button>
             </div>
             <div className="badges">
               {badges.map((b) => (
-                <div className={"badge" + (b.ok ? "" : " locked")} key={b.t} title={b.ok ? "Kazanıldı!" : "Henüz kilitli"}>
+                <div className={"badge" + (b.ok ? "" : " locked")} key={b.t} title={b.ok ? t("Kazanıldı!") : t("Henüz kilitli")}>
                   <div className="hexa" style={{ background: b.col }}><svg width="22" height="22"><use href={`#${b.ic}`} /></svg></div>
-                  <div className="t">{b.t}</div>
-                  <div className="d">{b.d}</div>
+                  <div className="t">{t(b.t)}</div>
+                  <div className="d">{t(b.d)}</div>
                 </div>
               ))}
             </div>
           </div>
 
           <div className="remember">
-            <div className="t">Unutma, Kaptan</div>
-            <div className="d">{C.MOTIVASYON[(quoteIdx + 3) % C.MOTIVASYON.length]}</div>
+            <div className="t">{t("Unutma, Kaptan")}</div>
+            <div className="d">{motivasyon((quoteIdx + 3) % C.MOTIVASYON.length)}</div>
             <img src="assets/img/lighthouse_big.png" alt="" />
           </div>
         </div>
 
         <div>
           <div className="card">
-            <div className="card-h"><div className="l">İstatistik Özeti</div></div>
+            <div className="card-h"><div className="l">{t("İstatistik Özeti")}</div></div>
             <div style={{ padding: "8px 0 16px" }}>
               {Object.entries(MODE_META).map(([k, [lbl, , col]]) => {
                 const p2 = tot ? Math.round((byMode[k] / tot) * 100) : 0;
@@ -160,7 +178,7 @@ export default function Profile({ setCurrentPage }) {
                     <div className="ic" style={{ background: "var(--blue-soft)", color: col }}>
                       <svg width="16" height="16"><use href={`#${modeIcons[k]}`} /></svg>
                     </div>
-                    {lbl}
+                    {t(lbl)}
                     <div className="bar"><i style={{ width: p2 + "%", background: col }}></i></div>
                     <span className="pc">{p2}% ({fmtMin(byMode[k])})</span>
                   </div>
@@ -170,26 +188,26 @@ export default function Profile({ setCurrentPage }) {
           </div>
 
           <div className="card" style={{ marginTop: "24px" }}>
-            <div className="card-h"><div className="l">Hızlı İşlemler</div></div>
+            <div className="card-h"><div className="l">{t("Hızlı İşlemler")}</div></div>
             <div style={{ padding: "4px 0 8px" }}>
               <div className="qa-row" onClick={() => { setNameVal(p.name); setEditOpen(true); }}>
                 <div className="ic"><svg width="17" height="17"><use href="#i-user" /></svg></div>
-                <div><div className="t">Profil Bilgilerini Düzenle</div><div className="d">Görünen adını güncelle.</div></div>
+                <div><div className="t">{t("Profil Bilgilerini Düzenle")}</div><div className="d">{t("Görünen adını güncelle.")}</div></div>
+                <svg className="ch" width="17" height="17"><use href="#i-chev-r" /></svg>
+              </div>
+              <div className="qa-row" onClick={pickAvatar}>
+                <div className="ic"><svg width="17" height="17"><use href="#i-camera" /></svg></div>
+                <div><div className="t">{t("Profil fotoğrafını değiştir")}</div><div className="d">JPG / PNG</div></div>
                 <svg className="ch" width="17" height="17"><use href="#i-chev-r" /></svg>
               </div>
               <div className="qa-row" onClick={() => setCurrentPage("settings")}>
                 <div className="ic"><svg width="17" height="17"><use href="#i-bell" /></svg></div>
-                <div><div className="t">Bildirim Tercihleri</div><div className="d">Bildirim ayarlarını özelleştir.</div></div>
-                <svg className="ch" width="17" height="17"><use href="#i-chev-r" /></svg>
-              </div>
-              <div className="qa-row" onClick={() => setCurrentPage("focus")}>
-                <div className="ic"><svg width="17" height="17"><use href="#i-target" /></svg></div>
-                <div><div className="t">Hedeflerini Yönet</div><div className="d">Odak hedeflerini görüntüle ve düzenle.</div></div>
+                <div><div className="t">{t("Bildirim Tercihleri")}</div><div className="d">{t("Bildirim ayarlarını özelleştir.")}</div></div>
                 <svg className="ch" width="17" height="17"><use href="#i-chev-r" /></svg>
               </div>
               <div className="qa-row" onClick={exportData}>
                 <div className="ic"><svg width="17" height="17"><use href="#i-download" /></svg></div>
-                <div><div className="t">Verilerini İndir</div><div className="d">Tüm verilerini dışa aktar.</div></div>
+                <div><div className="t">{t("Verilerini İndir")}</div><div className="d">{t("Tüm verilerini dışa aktar.")}</div></div>
                 <svg className="ch" width="17" height="17"><use href="#i-chev-r" /></svg>
               </div>
             </div>
@@ -198,15 +216,15 @@ export default function Profile({ setCurrentPage }) {
       </div>
 
       {editOpen && (
-        <Modal title="Profil Bilgilerini Düzenle" onClose={() => setEditOpen(false)}>
-          <label className="f-label">Görünen ad</label>
+        <Modal title={t("Profil Bilgilerini Düzenle")} onClose={() => setEditOpen(false)}>
+          <label className="f-label">{t("Görünen ad")}</label>
           <input className="f-input" value={nameVal} autoFocus onChange={(e) => setNameVal(e.target.value)}
             onKeyDown={(e) => { if (e.key === "Enter") saveName(); }} />
-          <label className="f-label">E-posta (hesap anahtarı)</label>
+          <label className="f-label">{t("E-posta (hesap anahtarı)")}</label>
           <input className="f-input" value={Storage.user || ""} disabled />
           <div className="actions">
-            <button className="btn-outline" onClick={() => setEditOpen(false)}>Vazgeç</button>
-            <button className="btn-navy" onClick={saveName}>Kaydet</button>
+            <button className="btn-outline" onClick={() => setEditOpen(false)}>{t("Vazgeç")}</button>
+            <button className="btn-navy" onClick={saveName}>{t("Kaydet")}</button>
           </div>
         </Modal>
       )}

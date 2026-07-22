@@ -34,6 +34,27 @@ export function weekDays(offset = 0) {
     return iso(d);
   });
 }
+/* Profil fotoğrafını 256px'e küçültüp dataURL döndürür (localStorage'a sığması için) */
+export function readAvatar(file) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      const S = 256;
+      const c = document.createElement("canvas");
+      c.width = S; c.height = S;
+      const ctx = c.getContext("2d");
+      const r = Math.max(S / img.width, S / img.height);
+      const w = img.width * r, h = img.height * r;
+      ctx.drawImage(img, (S - w) / 2, (S - h) / 2, w, h);
+      URL.revokeObjectURL(url);
+      resolve(c.toDataURL("image/jpeg", 0.85));
+    };
+    img.onerror = reject;
+    img.src = url;
+  });
+}
+
 export function delta(cur, prev) {
   if (!prev) return cur ? "↗ Yeni!" : "";
   const p = Math.round(((cur - prev) / prev) * 100);

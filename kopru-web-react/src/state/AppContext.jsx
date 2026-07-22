@@ -1,21 +1,38 @@
 /* ============================================================
    KÖPRÜ — Uygulama Durumu (React Context)
-   Zamanlayıcı, kullanıcı verileri, XP, balık yakalama, bildirim
-   ve toast tek yerden yönetilir; tüm sayfalar buradan beslenir.
+   Zamanlayıcı, kullanıcı verileri, XP, balık yakalama, bildirim,
+   dil (TR/EN), ipucu-motivasyon rotasyonu ve toast tek yerden.
    ============================================================ */
 import { createContext, useContext, useState, useEffect, useRef, useCallback } from "react";
 import { Storage } from "../utils/storage.js";
 import { KOPRU_CONFIG as C, RAR_LBL } from "../utils/config.js";
 import { Cam } from "../utils/camera.js";
 import { iso } from "../utils/helpers.js";
+import { EN, EN_MOTIVATION, EN_TIPS } from "../utils/i18n.js";
 
 const Ctx = createContext(null);
 export const useApp = () => useContext(Ctx);
 
 export function AppProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [rev, setRev] = useState(0); // veri değişince artar → sayfalar yeniden hesaplar
+  const [rev, setRev] = useState(0);
   const bump = useCallback(() => setRev((r) => r + 1), []);
+  const [lang, setLangState] = useState("tr");
+
+  /* ---------- dil ---------- */
+  const t = useCallback((s) => (lang === "en" ? (EN[s] ?? s) : s), [lang]);
+  const setLang = useCallback((l) => {
+    setLangState(l);
+    if (Storage.user) Storage.update("settings", (x) => { x.lang = l; return x; }, {});
+  }, []);
+  const motivasyon = useCallback(
+    (i) => (lang === "en" ? EN_MOTIVATION[i] ?? C.MOTIVASYON[i] : C.MOTIVASYON[i]),
+    [lang]
+  );
+  const ipucu = useCallback(
+    (i) => (lang === "en" ? EN_TIPS[i] ?? C.IPUCLARI[i] : C.IPUCLARI[i]),
+    [lang]
+  );
 
   /* ---------- toast ---------- */
   const [toastMsg, setToastMsg] = useState(null);
@@ -30,13 +47,19 @@ export function AppProvider({ children }) {
   const get = useCallback((col, fb) => (Storage.user ? Storage.get(col, fb) : fb), []);
   const set = useCallback((col, val) => { Storage.set(col, val); bump(); }, [bump]);
 
-  /* ---------- profil / XP ---------- */
+  /* ---------- profil / XP / avatar ---------- */
   const profile = useCallback(
-    () => get("profile", { name: "Kaptan", level: 1, xp: 0, xpMax: 1000, joined: iso() }),
+    () => get("profile", { name: "Kaptan", level: 1, xp: 0, xpMax: 1000, joined: iso(), avatar: null }),
     [get]
   );
-  const addNotif = useCallback((icon, t, d) => {
-    Storage.update("notifs", (a) => { a.unshift({ icon, t, d, ts: Date.now() }); return a.slice(0, 12); }, []);
+  const setAvatar = useCallback((dataUrl) => {
+    const p = profile();
+    p.avatar = dataUrl;
+    Storage.set("profile", p);
+    bump();
+  }, [profile, bump]);
+  const addNotif = useCallback((icon, tt, d) => {
+    Storage.update("notifs", (a) => { a.unshift({ icon, t: tt, d, ts: Date.now() }); return a.slice(0, 12); }, []);
     bump();
   }, [bump]);
   const addXp = useCallback((n) => {
@@ -46,17 +69,17 @@ export function AppProvider({ children }) {
       p.xp -= p.xpMax;
       p.level++;
       p.xpMax += 200;
-      toast("Tebrikler Kaptan! Seviye " + p.level + " oldun ⚓");
-      addNotif("flame", "Seviye atladın!", "Artık Seviye " + p.level + " kaptanısın.");
+      toast(t("Tebrikler Kaptan! Seviye") + " " + p.level + " ⚓");
+      addNotif("flame", "Seviye atladın!", "Seviye " + p.level);
     }
     Storage.set("profile", p);
     bump();
-  }, [profile, toast, addNotif, bump]);
+  }, [profile, toast, addNotif, bump, t]);
 
   /* ---------- tema ---------- */
-  const applyTheme = useCallback((t) => {
-    if (Storage.user) Storage.update("settings", (s) => { s.theme = t; return s; }, {});
-    const dark = t === "dark" || (t === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
+  const applyTheme = useCallback((th) => {
+    if (Storage.user) Storage.update("settings", (s) => { s.theme = th; return s; }, {});
+    const dark = th === "dark" || (th === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
     document.body.classList.toggle("dark", dark);
     bump();
   }, [bump]);
@@ -70,9 +93,9 @@ export function AppProvider({ children }) {
     return () => clearInterval(id);
   }, [user, sessionPaused]);
 
-  /* ---------- odak zamanlayıcısı (Ana Sayfa + Odak Modu ortak) ---------- */
+  /* ---------- odak zamanlayıcısı (tüm sayfalarda ortak) ---------- */
   const [timer, setTimer] = useState({ sec: 25 * 60, total: 25 * 60, running: false, isBreak: false, mode: "derin" });
-  const [pendingFish, setPendingFish] = useState(null); // seans sonrası isim bekleyen balık
+  const [pendingFish, setPendingFish] = useState(null);
 
   const catchFish = useCallback((minutes) => {
     const catalog = window.FISH_CATALOG || [];
@@ -83,51 +106,47 @@ export function AppProvider({ children }) {
     const pick = pool[Math.floor(Math.random() * pool.length)];
     const f = { id: Date.now(), name: "", file: pick.file, tier, minutes, date: iso(), isNew: true };
     Storage.update("fish", (a) => { a.unshift(f); return a; }, []);
-    addNotif("fish", "Yeni balık yakaladın!", RAR_LBL[tier] + " tür · " + minutes + " dk seans");
+    addNotif("fish", "Yeni balık yakaladın!", RAR_LBL[tier] + " · " + minutes + " dk");
     setPendingFish(f);
     bump();
   }, [toast, addNotif, bump]);
 
-  const finishFocus = useCallback((t) => {
-    if (t.isBreak) { toast("Ara bitti. Rotaya dönme zamanı! 🧭"); return; }
-    const minutes = Math.round(t.total / 60);
-    Storage.push("sessions", { date: iso(), minutes, mode: t.mode, hour: new Date().getHours(), completed: true, ts: Date.now() });
+  const finishFocus = useCallback((tm) => {
+    if (tm.isBreak) { toast(t("Ara bitti. Rotaya dönme zamanı! 🧭")); return; }
+    const minutes = Math.round(tm.total / 60);
+    Storage.push("sessions", { date: iso(), minutes, mode: tm.mode, hour: new Date().getHours(), completed: true, ts: Date.now() });
     addXp(C.XP_SEANS);
     catchFish(minutes);
-  }, [toast, addXp, catchFish]);
+  }, [toast, addXp, catchFish, t]);
 
   useEffect(() => {
     if (!timer.running) return;
     const id = setInterval(() => {
-      setTimer((t) => {
-        if (t.sec <= 1) {
-          const bitti = { ...t, sec: t.total, running: false };
-          setTimeout(() => finishFocus(t), 0);
-          return bitti;
+      setTimer((tm) => {
+        if (tm.sec <= 1) {
+          setTimeout(() => finishFocus(tm), 0);
+          return { ...tm, sec: tm.total, running: false };
         }
-        return { ...t, sec: t.sec - 1 };
+        return { ...tm, sec: tm.sec - 1 };
       });
     }, 1000);
     return () => clearInterval(id);
   }, [timer.running, finishFocus]);
 
   const toggleTimer = useCallback(() => {
-    setTimer((t) => {
-      const running = !t.running;
-      if (running) {
-        if (t.sec === t.total && !t.isBreak) Storage.update("starts", (m) => { m[iso()] = (m[iso()] || 0) + 1; return m; }, {});
-        toast(t.isBreak ? "Ara başladı, iyi dinlenmeler ☕" : "Odak modu başladı. Rüzgar arkanda, Kaptan! ⚓");
-      } else {
-        toast("Zamanlayıcı duraklatıldı");
+    setTimer((tm) => {
+      const running = !tm.running;
+      if (running && tm.sec === tm.total && !tm.isBreak) {
+        Storage.update("starts", (m) => { m[iso()] = (m[iso()] || 0) + 1; return m; }, {});
       }
-      return { ...t, running };
+      return { ...tm, running };
     });
-  }, [toast]);
+  }, []);
 
   const setDuration = useCallback((min, isBreak = false) => {
-    setTimer((t) => ({ ...t, sec: min * 60, total: min * 60, running: false, isBreak }));
+    setTimer((tm) => ({ ...tm, sec: min * 60, total: min * 60, running: false, isBreak }));
   }, []);
-  const setMode = useCallback((mode) => setTimer((t) => ({ ...t, mode })), []);
+  const setMode = useCallback((mode) => setTimer((tm) => ({ ...tm, mode })), []);
 
   /* ---------- kamera uyarıları → kayıt + bildirim ---------- */
   useEffect(() => {
@@ -139,15 +158,17 @@ export function AppProvider({ children }) {
     };
   }, [addNotif, bump]);
 
-  /* ---------- motivasyon mesajı (otomatik döner) ---------- */
+  /* ---------- motivasyon + ipucu rotasyonu ---------- */
   const [quoteIdx, setQuoteIdx] = useState(0);
+  const [tipIdx, setTipIdx] = useState(0);
   useEffect(() => {
     if (!user) return;
-    const id = setInterval(() => {
+    const q = setInterval(() => {
       if (Storage.get("settings", {}).motiv === false) return;
       setQuoteIdx((i) => (i + 1) % C.MOTIVASYON.length);
     }, C.MOTIVASYON_ARALIGI_SN * 1000);
-    return () => clearInterval(id);
+    const p = setInterval(() => setTipIdx((i) => (i + 1) % C.IPUCLARI.length), C.IPUCU_ARALIGI_SN * 1000);
+    return () => { clearInterval(q); clearInterval(p); };
   }, [user]);
 
   /* ---------- giriş / çıkış ---------- */
@@ -158,13 +179,14 @@ export function AppProvider({ children }) {
     const v = s.sens !== undefined ? s.sens : 50;
     C.EAR_ESIK = 0.14 + (v / 100) * 0.12;
     if (s.camId) Cam.deviceId = s.camId;
+    setLangState(s.lang === "en" ? "en" : "tr");
     applyTheme(s.theme || "light");
   }, [applyTheme]);
 
   const login = useCallback((email, remember, registerName) => {
     Storage.login(email, remember);
     const yeni = Storage.get("profile", null) === null;
-    const p = Storage.get("profile", { name: "Kaptan", level: 1, xp: 0, xpMax: 1000, joined: iso() });
+    const p = Storage.get("profile", { name: "Kaptan", level: 1, xp: 0, xpMax: 1000, joined: iso(), avatar: null });
     if (registerName) p.name = registerName.split(" ")[0];
     else if (yeni) p.name = email.split("@")[0];
     if (yeni) p.joined = iso();
@@ -186,12 +208,13 @@ export function AppProvider({ children }) {
 
   const value = {
     user, login, logout, rev, bump,
-    get, set, profile, addXp, addNotif, toast, toastMsg,
+    get, set, profile, addXp, addNotif, setAvatar, toast, toastMsg,
     applyTheme, applySettings,
+    lang, setLang, t, motivasyon, ipucu,
     sessionSec, sessionPaused, setSessionPaused,
     timer, toggleTimer, setDuration, setMode,
     pendingFish, setPendingFish,
-    quoteIdx,
+    quoteIdx, tipIdx,
     Storage, C,
   };
 

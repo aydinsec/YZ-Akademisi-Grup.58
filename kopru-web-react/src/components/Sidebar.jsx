@@ -10,8 +10,8 @@ const NAV = [
 ];
 
 function Sidebar({ currentPage, setCurrentPage }) {
-  const { profile, rev } = useApp();
-  void rev; // veri değişince yeniden çizilsin
+  const { profile, rev, t } = useApp();
+  void rev;
   const p = profile();
   const pct = Math.round((p.xp / p.xpMax) * 100) + "%";
 
@@ -25,18 +25,18 @@ function Sidebar({ currentPage, setCurrentPage }) {
       <nav className="nav">
         {NAV.map(([key, icon, label]) => (
           <button key={key} onClick={() => setCurrentPage(key)} className={currentPage === key ? "active" : ""}>
-            <svg width="20" height="20"><use href={`#${icon}`} /></svg> {label}
+            <svg width="20" height="20"><use href={`#${icon}`} /></svg> {t(label)}
           </button>
         ))}
       </nav>
 
       <div className="side-sea">
         <img src="assets/img/sidebar_boat.png" alt="" />
-        <div className="side-profile" title="Profilim" onClick={() => setCurrentPage("profile")}>
+        <div className="side-profile" title={t("Profilim")} onClick={() => setCurrentPage("profile")}>
           <div className="top">
-            <img className="av" src="assets/img/avatar.png" alt="Avatar" />
+            <img className="av" src={p.avatar || "assets/img/avatar.png"} alt="Avatar" />
             <div>
-              <div className="hello">Merhaba,</div>
+              <div className="hello">{t("Merhaba,")}</div>
               <div className="name">
                 <span>{p.name}</span>{" "}
                 <svg width="14" height="14"><use href="#i-anchor" /></svg>
@@ -45,7 +45,7 @@ function Sidebar({ currentPage, setCurrentPage }) {
           </div>
           <div className="xpbar"><i style={{ width: pct }}></i></div>
           <div className="xptext">
-            <span>Seviye {p.level}</span> &nbsp;·&nbsp; <span>{p.xp} / {p.xpMax} XP</span>
+            <span>{t("Seviye")} {p.level}</span> &nbsp;·&nbsp; <span>{p.xp} / {p.xpMax} XP</span>
           </div>
         </div>
       </div>

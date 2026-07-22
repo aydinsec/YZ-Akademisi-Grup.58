@@ -15,7 +15,7 @@ import { RAR_LBL } from "./utils/config.js";
 
 /* Seans bitince otomatik yakalanan balığa isim verme penceresi */
 function FishNamingModal() {
-  const { pendingFish, setPendingFish, get, set, toast } = useApp();
+  const { pendingFish, setPendingFish, get, set, toast, t } = useApp();
   const [name, setName] = useState("");
   if (!pendingFish) return null;
 
@@ -23,24 +23,24 @@ function FishNamingModal() {
     const a = get("fish", []);
     const f = a.find((x) => x.id === pendingFish.id);
     if (f) { f.name = name.trim(); set("fish", a); }
-    toast(name.trim() ? `"${name.trim()}" koleksiyona katıldı 🐟` : "Balık koleksiyona eklendi");
+    toast(name.trim() ? `"${name.trim()}" 🐟` : "🐟");
     setName("");
     setPendingFish(null);
   };
 
   return (
-    <Modal title="Seans tamamlandı — yeni balık! 🎣" onClose={() => { setName(""); setPendingFish(null); }}>
+    <Modal title={t("Seans tamamlandı — yeni balık! 🎣")} onClose={() => { setName(""); setPendingFish(null); }}>
       <p style={{ color: "var(--muted)", fontSize: "13.5px", marginBottom: "12px" }}>
-        {pendingFish.minutes} dakikalık odak seansın denizden <b>{RAR_LBL[pendingFish.tier]}</b> bir balık getirdi. Ona bir isim ver:
+        {pendingFish.minutes} {t("dakikalık odak seansın denizden")} <b>{t(RAR_LBL[pendingFish.tier])}</b> {t("bir balık getirdi. Ona bir isim ver:")}
       </p>
-      <div className="fish-name-preview"><img src={`assets/fish/${pendingFish.file}`} alt="Yeni balık" /></div>
-      <label className="f-label">Balık adı</label>
-      <input className="f-input" value={name} placeholder="Ör: Gümüş Pul" autoFocus
+      <div className="fish-name-preview"><img src={`assets/fish/${pendingFish.file}`} alt="" /></div>
+      <label className="f-label">{t("Balık adı")}</label>
+      <input className="f-input" value={name} autoFocus
         onChange={(e) => setName(e.target.value)}
         onKeyDown={(e) => { if (e.key === "Enter") save(); }} />
       <div className="actions">
-        <button className="btn-outline" onClick={() => { setName(""); setPendingFish(null); }}>Sonra</button>
-        <button className="btn-navy" onClick={save}>Kaydet</button>
+        <button className="btn-outline" onClick={() => { setName(""); setPendingFish(null); }}>{t("Sonra")}</button>
+        <button className="btn-navy" onClick={save}>{t("Kaydet")}</button>
       </div>
     </Modal>
   );
