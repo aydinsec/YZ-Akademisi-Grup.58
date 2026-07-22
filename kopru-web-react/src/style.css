@@ -2934,3 +2934,7 @@ body.dark .remember {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* React geçişinde kullanılan takma adlar */
+:root{--bg-soft:var(--line-soft);--card-bg:var(--card);--border:var(--line)}
+body.dark{--bg-soft:var(--line-soft);--card-bg:var(--card);--border:var(--line)}
