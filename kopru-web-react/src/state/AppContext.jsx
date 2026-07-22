@@ -143,6 +143,23 @@ export function AppProvider({ children }) {
     });
   }, []);
 
+  /* Erken bitir: geçen süre istatistiklere yazılır ama balık/XP verilmez
+     (balık yalnızca hedef süre tamamen dolunca kazanılır) */
+  const finishEarly = useCallback(() => {
+    setTimer((tm) => {
+      if (tm.sec >= tm.total) return tm; // hiç başlamamış
+      const elapsedMin = Math.round((tm.total - tm.sec) / 60);
+      if (!tm.isBreak && elapsedMin >= 1) {
+        Storage.push("sessions", { date: iso(), minutes: elapsedMin, mode: tm.mode, hour: new Date().getHours(), completed: false, ts: Date.now() });
+        toast(t("Seans erken bitirildi") + " — " + elapsedMin + " dk " + t("istatistiklere eklendi") + " 📊");
+      } else {
+        toast(t("Seans erken bitirildi"));
+      }
+      setTimeout(bump, 0);
+      return { ...tm, sec: tm.total, running: false };
+    });
+  }, [toast, t, bump]);
+
   const setDuration = useCallback((min, isBreak = false) => {
     setTimer((tm) => ({ ...tm, sec: min * 60, total: min * 60, running: false, isBreak }));
   }, []);
@@ -212,7 +229,7 @@ export function AppProvider({ children }) {
     applyTheme, applySettings,
     lang, setLang, t, motivasyon, ipucu,
     sessionSec, sessionPaused, setSessionPaused,
-    timer, toggleTimer, setDuration, setMode,
+    timer, toggleTimer, setDuration, setMode, finishEarly,
     pendingFish, setPendingFish,
     quoteIdx, tipIdx,
     Storage, C,

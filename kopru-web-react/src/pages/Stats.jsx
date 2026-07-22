@@ -25,6 +25,9 @@ export default function Stats() {
   const wk = weekDays(range), prevWk = weekDays(range - 1);
   const inWk = sessions.filter((s) => wk.includes(s.date));
   const inPrev = sessions.filter((s) => prevWk.includes(s.date));
+  /* erken bitirilen seanslar dakika olarak sayılır, "tamamlanan seans" olarak sayılmaz */
+  const inWkDone = inWk.filter((s) => s.completed !== false);
+  const inPrevDone = inPrev.filter((s) => s.completed !== false);
   const min = inWk.reduce((a, s) => a + s.minutes, 0);
   const pmin = inPrev.reduce((a, s) => a + s.minutes, 0);
   const doneT = tasks.filter((t) => t.done && t.doneAt && wk.includes(t.doneAt)).length;
@@ -54,7 +57,7 @@ export default function Stats() {
 
   /* başarı çizgisi */
   const pts = wk.map((d, i) => {
-    const done = sessions.filter((s) => s.date === d).length;
+    const done = sessions.filter((s) => s.date === d && s.completed !== false).length;
     const st = starts[d] || 0;
     const rate = st ? Math.min(1, done / st) : done ? 1 : 0;
     return [40 + i * 62, 180 - rate * 168];
@@ -69,7 +72,7 @@ export default function Stats() {
     const r = [
       "KÖPRÜ — Haftalık Odak Raporu", "Kaptan: " + profile().name, "",
       "Toplam Odak Süresi: " + fmtMin(min),
-      "Tamamlanan Seans: " + inWk.length,
+      "Tamamlanan Seans: " + inWkDone.length,
       "Tamamlanan Görev: " + doneT,
       "En Uzun Seri: " + streak(sessions) + " gün",
       "Yakalanan Balık: " + fish.length, "",
@@ -107,7 +110,7 @@ export default function Stats() {
         </div>
         <div className="card stat-card">
           <div className="top"><span className="ico" style={{ background: "var(--green-soft)", color: "var(--green)" }}><svg width="19" height="19"><use href="#i-target" /></svg></span> {t("Tamamlanan Seans")}</div>
-          <div className="v">{inWk.length}</div><div className="delta">{delta(inWk.length, inPrev.length)}</div>
+          <div className="v">{inWkDone.length}</div><div className="delta">{delta(inWkDone.length, inPrevDone.length)}</div>
         </div>
         <div className="card stat-card">
           <div className="top"><span className="ico" style={{ background: "var(--blue-soft)", color: "var(--teal)" }}><svg width="19" height="19"><use href="#i-check-c" /></svg></span> {t("Tamamlanan Görev")}</div>

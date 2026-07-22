@@ -108,7 +108,7 @@ export default function Profile({ setCurrentPage }) {
         <div className="prof-facts">
           <div className="fact"><span className="k">{t("Üye olma tarihi")}</span><span className="v">{trDate(p.joined)}</span></div>
           <div className="fact"><span className="k">{t("Toplam odak süresi")}</span><span className="v">{fmtMin(totMin)}</span></div>
-          <div className="fact"><span className="k">{t("Tamamlanan seans")}</span><span className="v">{sessions.length}</span></div>
+          <div className="fact"><span className="k">{t("Tamamlanan seans")}</span><span className="v">{sessions.filter((s) => s.completed !== false).length}</span></div>
           <div className="fact">
             <span className="k">{t("Yakalanan balık")}</span>
             <span className="v">{fish.length}
