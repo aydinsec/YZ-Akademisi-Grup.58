@@ -18,57 +18,58 @@ const NOTIF_ICONS = {
 };
 
 function Topbar({ currentPage }) {
-  const { profile, get, rev, timer, toggleTimer, sessionSec, sessionPaused, setSessionPaused, applyTheme, toast } = useApp();
+  const { profile, get, rev, timer, toggleTimer, sessionSec, sessionPaused, setSessionPaused, applyTheme, toast, t } = useApp();
   void rev;
   const [notifOpen, setNotifOpen] = useState(false);
   const [seen, setSeen] = useState(0);
 
   const p = profile();
   const h = new Date().getHours();
-  const greeting = (h < 12 ? "Günaydın" : h < 18 ? "İyi günler" : "İyi akşamlar") + ", " + p.name;
+  const greeting = t(h < 12 ? "Günaydın" : h < 18 ? "İyi günler" : "İyi akşamlar") + ", " + p.name;
   const [title, sub] = PAGES[currentPage] || ["KÖPRÜ", "Odaklan. İlerle. Köprü kur."];
   const notifs = get("notifs", []);
+  /* Odak sayacı aktifken tüm sayfalarda ODAK SÜRESİ gösterilir */
   const focusActive = timer.running || timer.sec < timer.total;
   const dark = document.body.classList.contains("dark");
 
   const when = (ts) => {
     const dk = Math.round((Date.now() - ts) / 60000);
-    return dk < 1 ? "Şimdi" : dk < 60 ? dk + " dk önce" : Math.round(dk / 60) + " sa önce";
+    return dk < 1 ? t("Şimdi") : dk < 60 ? dk + " " + t("dk önce") : Math.round(dk / 60) + " " + t("sa önce");
   };
 
   return (
     <header className="topbar">
       <div className="titles">
         <h1>
-          <span>{title || greeting}</span>{" "}
+          <span>{title ? t(title) : greeting}</span>{" "}
           <svg className="anchor" width="22" height="22"><use href="#i-anchor" /></svg>
         </h1>
-        <div className="sub">{sub}</div>
+        <div className="sub">{t(sub)}</div>
       </div>
 
       <div className="top-actions">
-        <button className="iconbtn" aria-label="Bildirimler"
+        <button className="iconbtn" aria-label={t("Bildirimler")}
           onClick={() => { setNotifOpen(!notifOpen); setSeen(notifs.length); }}>
           <svg width="19" height="19"><use href="#i-bell" /></svg>
           {notifs.length > seen && <span className="dot"></span>}
         </button>
 
-        <button className="iconbtn" aria-label="Tema değiştir"
-          onClick={() => { applyTheme(dark ? "light" : "dark"); toast("Tema: " + (dark ? "Açık" : "Koyu")); }}>
+        <button className="iconbtn" aria-label={t("Tema")}
+          onClick={() => { applyTheme(dark ? "light" : "dark"); toast(t("Tema") + ": " + t(dark ? "Açık" : "Koyu")); }}>
           <svg width="19" height="19"><use href={dark ? "#i-sun" : "#i-moon"} /></svg>
         </button>
 
         <div className="top-sep"></div>
 
-        <div className="session-chip">
+        <div className={"session-chip" + (focusActive ? " focus-on" : "")}>
           <svg width="21" height="21"><use href="#i-clock" /></svg>
           <div>
-            <div className="lbl">{focusActive ? (timer.isBreak ? "ARA SÜRESİ" : "ODAK SÜRESİ") : "OTURUM SÜRESİ"}</div>
+            <div className="lbl">{focusActive ? (timer.isBreak ? t("ARA SÜRESİ") : t("ODAK SÜRESİ")) : t("OTURUM SÜRESİ")}</div>
             <div className="time">{focusActive ? fmt(timer.sec) : fmtH(sessionSec)}</div>
           </div>
-          <button aria-label="Duraklat" onClick={() => {
+          <button aria-label={t("Duraklat")} onClick={() => {
             if (focusActive) toggleTimer();
-            else { setSessionPaused(!sessionPaused); toast(sessionPaused ? "Oturum sayacı devam ediyor" : "Oturum sayacı duraklatıldı"); }
+            else setSessionPaused(!sessionPaused);
           }}>
             <svg width="14" height="14">
               <use href={(focusActive ? timer.running : !sessionPaused) ? "#i-pause" : "#i-play"} />
@@ -81,9 +82,9 @@ function Topbar({ currentPage }) {
 
       {notifOpen && (
         <div className="notif-menu">
-          <h4>Bildirimler</h4>
+          <h4>{t("Bildirimler")}</h4>
           <div>
-            {notifs.length === 0 && <div className="notif-empty">Henüz bildirim yok.</div>}
+            {notifs.length === 0 && <div className="notif-empty">{t("Henüz bildirim yok.")}</div>}
             {notifs.map((n, i) => {
               const [bg, fg, ic] = NOTIF_ICONS[n.icon] || NOTIF_ICONS.flame;
               return (

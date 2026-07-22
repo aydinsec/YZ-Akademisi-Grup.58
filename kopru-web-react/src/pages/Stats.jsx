@@ -12,7 +12,7 @@ function streak(sessions) {
 }
 
 export default function Stats() {
-  const { get, profile, rev, toast } = useApp();
+  const { get, profile, rev, toast, t } = useApp();
   void rev;
   const [range, setRange] = useState(0); // 0 bu hafta, -1 geçen hafta
   const [unit, setUnit] = useState("saat");
@@ -81,7 +81,7 @@ export default function Stats() {
     a.download = "kopru-haftalik-rapor.txt";
     a.click();
     URL.revokeObjectURL(a.href);
-    toast("Rapor indirildi 📄");
+    toast(t("Rapor indirildi 📄"));
   };
 
   return (
@@ -89,33 +89,33 @@ export default function Stats() {
       <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
         <div className="tabs" style={{ flex: 1, marginBottom: "24px" }}>
           {[["genel", "Genel Bakış"], ["sure", "Odak Süresi"], ["seans", "Seanslar"], ["aliskanlik", "Alışkanlıklar"], ["basari", "Başarılar"]].map(([k, l]) => (
-            <button key={k} className={tab === k ? "active" : ""} onClick={() => setTab(k)}>{l}</button>
+            <button key={k} className={tab === k ? "active" : ""} onClick={() => setTab(k)}>{t(l)}</button>
           ))}
         </div>
         <div className="select" style={{ marginBottom: "14px" }}>
           <select value={range} onChange={(e) => setRange(+e.target.value)}>
-            <option value={0}>Bu Hafta</option>
-            <option value={-1}>Geçen Hafta</option>
+            <option value={0}>{t("Bu Hafta")}</option>
+            <option value={-1}>{t("Geçen Hafta")}</option>
           </select>
         </div>
       </div>
 
       <div className="stat-cards">
         <div className="card stat-card">
-          <div className="top"><span className="ico" style={{ background: "var(--blue-soft)", color: "var(--teal)" }}><svg width="19" height="19"><use href="#i-clock" /></svg></span> Toplam Odak Süresi</div>
+          <div className="top"><span className="ico" style={{ background: "var(--blue-soft)", color: "var(--teal)" }}><svg width="19" height="19"><use href="#i-clock" /></svg></span> {t("Toplam Odak Süresi")}</div>
           <div className="v">{fmtMin(min)}</div><div className="delta">{delta(min, pmin)}</div>
         </div>
         <div className="card stat-card">
-          <div className="top"><span className="ico" style={{ background: "var(--green-soft)", color: "var(--green)" }}><svg width="19" height="19"><use href="#i-target" /></svg></span> Tamamlanan Seans</div>
+          <div className="top"><span className="ico" style={{ background: "var(--green-soft)", color: "var(--green)" }}><svg width="19" height="19"><use href="#i-target" /></svg></span> {t("Tamamlanan Seans")}</div>
           <div className="v">{inWk.length}</div><div className="delta">{delta(inWk.length, inPrev.length)}</div>
         </div>
         <div className="card stat-card">
-          <div className="top"><span className="ico" style={{ background: "var(--blue-soft)", color: "var(--teal)" }}><svg width="19" height="19"><use href="#i-check-c" /></svg></span> Tamamlanan Görev</div>
+          <div className="top"><span className="ico" style={{ background: "var(--blue-soft)", color: "var(--teal)" }}><svg width="19" height="19"><use href="#i-check-c" /></svg></span> {t("Tamamlanan Görev")}</div>
           <div className="v">{doneT}</div><div className="delta">{delta(doneT, pDoneT)}</div>
         </div>
         <div className="card stat-card">
-          <div className="top"><span className="ico" style={{ background: "var(--orange-soft)", color: "var(--orange)" }}><svg width="19" height="19"><use href="#i-flame" /></svg></span> En Uzun Seri</div>
-          <div className="v">{streak(sessions)} gün</div><div className="delta">{streak(sessions) ? "↗ Devam et!" : ""}</div>
+          <div className="top"><span className="ico" style={{ background: "var(--orange-soft)", color: "var(--orange)" }}><svg width="19" height="19"><use href="#i-flame" /></svg></span> {t("En Uzun Seri")}</div>
+          <div className="v">{streak(sessions)} {t("gün")}</div><div className="delta">{streak(sessions) ? "↗ " + t("Devam et!") : ""}</div>
         </div>
       </div>
 
@@ -123,11 +123,11 @@ export default function Stats() {
         <div>
           <div className="card">
             <div className="card-h">
-              <div className="l">Günlük Odak Süresi</div>
+              <div className="l">{t("Günlük Odak Süresi")}</div>
               <div className="select">
                 <select value={unit} onChange={(e) => setUnit(e.target.value)}>
-                  <option value="saat">Süre (saat)</option>
-                  <option value="seans">Seans sayısı</option>
+                  <option value="saat">{t("Süre (saat)")}</option>
+                  <option value="seans">{t("Seans sayısı")}</option>
                 </select>
               </div>
             </div>
@@ -145,13 +145,13 @@ export default function Stats() {
                 </div>
                 {avg > 0 && (
                   <div className="avg-line" style={{ bottom: 22 + (avg / max) * 200 + "px" }}>
-                    <span>{unit === "saat" ? "Ortalama " + fmtMin(avg * 60) : "Ortalama " + avg.toFixed(1)}</span>
+                    <span>{unit === "saat" ? t("Ortalama") + " " + fmtMin(avg * 60) : t("Ortalama") + " " + avg.toFixed(1)}</span>
                   </div>
                 )}
                 {barData.map(([l, v]) => (
                   <div className="bar-col" key={l}>
                     <div className="b" style={{ height: Math.max(3, Math.round((v / max) * 200)) + "px" }}>
-                      <span className="tip">{unit === "saat" ? fmtMin(v * 60) : v + " seans"}</span>
+                      <span className="tip">{unit === "saat" ? fmtMin(v * 60) : v + " " + t("seans")}</span>
                     </div>
                     <div className="lbl">{l}</div>
                   </div>
@@ -162,13 +162,13 @@ export default function Stats() {
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: "20px", marginTop: "20px" }}>
             <div className="card">
-              <div className="card-h"><div className="l">Odak Türlerine Göre Dağılım</div></div>
+              <div className="card-h"><div className="l">{t("Odak Türlerine Göre Dağılım")}</div></div>
               <div style={{ padding: "16px 22px 22px" }}>
                 {Object.entries(MODE_META).map(([k, [lbl, col]]) => {
                   const p = tot ? Math.round((byMode[k] / tot) * 100) : 0;
                   return (
                     <div className="hbar" key={k}>
-                      <div className="t"><span>{lbl}</span><b>{p}%</b></div>
+                      <div className="t"><span>{t(lbl)}</span><b>{p}%</b></div>
                       <div className="track"><i style={{ width: p + "%", background: col }}></i></div>
                     </div>
                   );
@@ -176,7 +176,7 @@ export default function Stats() {
               </div>
             </div>
             <div className="card">
-              <div className="card-h"><div className="l">Günlere Göre Başarı Oranı</div></div>
+              <div className="card-h"><div className="l">{t("Günlere Göre Başarı Oranı")}</div></div>
               <div className="linechart">
                 <svg viewBox="0 0 420 190" width="100%">
                   <g fontSize="10.5" fill="var(--muted2)">
@@ -199,7 +199,7 @@ export default function Stats() {
 
         <div>
           <div className="card">
-            <div className="card-h"><div className="l">Odak Dağılımı</div></div>
+            <div className="card-h"><div className="l">{t("Odak Dağılımı")}</div></div>
             <div style={{ display: "flex", alignItems: "center", gap: "22px", padding: "16px 22px 22px" }}>
               <div className="donut-wrap" style={{ padding: 0 }}>
                 <svg width="140" height="140" viewBox="0 0 140 140">
@@ -211,7 +211,7 @@ export default function Stats() {
                 </svg>
                 <div className="donut-c">
                   <div className="p" style={{ fontSize: "19px" }}>{fmtMin(tot)}</div>
-                  <div className="s">Toplam</div>
+                  <div className="s">{t("Toplam")}</div>
                 </div>
               </div>
               <div style={{ flex: 1 }}>
@@ -219,7 +219,7 @@ export default function Stats() {
                   const p = tot ? Math.round((byMode[k] / tot) * 100) : 0;
                   return (
                     <div className="legend-r" key={k}>
-                      <span className="sq" style={{ background: col }}></span> {lbl}
+                      <span className="sq" style={{ background: col }}></span> {t(lbl)}
                       <span className="pc">{p}%</span><span className="tm">{fmtMin(byMode[k])}</span>
                     </div>
                   );
@@ -229,7 +229,7 @@ export default function Stats() {
           </div>
 
           <div className="card" style={{ marginTop: "20px" }}>
-            <div className="card-h"><div className="l">Saatlere Göre Odaklanma</div></div>
+            <div className="card-h"><div className="l">{t("Saatlere Göre Odaklanma")}</div></div>
             <div className="heat">
               <div></div>
               {GUNLER.map((g) => <div className="cl" key={g}>{g}</div>)}
@@ -242,22 +242,22 @@ export default function Stats() {
               ))}
             </div>
             <div className="heat-legend">
-              Düşük <i style={{ background: "var(--line-soft)" }}></i><i style={{ background: "#d7e7ed" }}></i>
+              {t("Düşük")} <i style={{ background: "var(--line-soft)" }}></i><i style={{ background: "#d7e7ed" }}></i>
               <i style={{ background: "#a9cbd8" }}></i><i style={{ background: "#5f97ac" }}></i>
-              <i style={{ background: "#1d5068" }}></i> Yüksek
+              <i style={{ background: "#1d5068" }}></i> {t("Yüksek")}
             </div>
           </div>
 
           <div className="praise" style={{ marginTop: "20px" }}>
             <div className="t">
-              {min > 0 ? `Harika gidiyorsun, ${profile().name}!` : "Rotan açık, Kaptan!"}{" "}
+              {min > 0 ? `${profile().name}! ⚓` : t("Rotan açık, Kaptan!")}{" "}
               <svg width="17" height="17" style={{ color: "var(--red)" }}><use href="#i-anchor" /></svg>
             </div>
             <div className="d">
-              {min > 0 ? `Bu hafta ${fmtMin(min)} odaklandın. Rüzgar arkanda!` : "Odak seanslarını tamamladıkça istatistiklerin burada birikecek."}
+              {min > 0 ? `${t("Bu Hafta")}: ${fmtMin(min)} 💪` : t("Odak seanslarını tamamladıkça istatistiklerin burada birikecek.")}
             </div>
             <button className="btn-outline" onClick={dlReport}>
-              <svg width="16" height="16"><use href="#i-download" /></svg> Detaylı Raporu İndir
+              <svg width="16" height="16"><use href="#i-download" /></svg> {t("Detaylı Raporu İndir")}
             </button>
             <img src="assets/img/lighthouse_big.png" alt="" />
           </div>
@@ -267,8 +267,8 @@ export default function Stats() {
       <div className="banner" style={{ marginTop: "24px" }}>
         <div className="ic"><svg width="24" height="24"><use href="#i-anchor" /></svg></div>
         <div>
-          <div className="t">İpucu</div>
-          <div className="d">Düzenli odak seansları, uzun vadede büyük sonuçlar getirir. Küçük adımlar, büyük rotalar çizer.</div>
+          <div className="t">{t("İpucu")}</div>
+          <div className="d">{t("Düzenli odak seansları, uzun vadede büyük sonuçlar getirir. Küçük adımlar, büyük rotalar çizer.")}</div>
         </div>
         <img className="art" src="assets/img/waves_banner.png" alt="" />
       </div>

@@ -25,3 +25,13 @@ npm run dev
 ```
 
 Not: Kalan birkaç eslint bildirimi yeni react-hooks ön ayarının stil uyarılarıdır, çalışmayı etkilemez.
+
+## Güncelleme 2 (UI/UX iyileştirmeleri)
+- Odak Modu 3D sahneyle bütünleşti: sayaç ve kontroller sahne içinde, üst kart ve mod kutusu kaldırıldı, FPS göstergesi silindi, Tam Ekran / Ayarlar / Canlı Rota butonları tasarıma uyarlandı
+- Odak başlatınca kamera izleme otomatik açılıyor
+- Giriş ekranı video arka planı (public/assets/video/login_bg.mp4)
+- Dil desteği: Ayarlar > Dil > English tüm arayüzü çevirir (src/utils/i18n.js — yeni metinlerin karşılığını buraya ekleyin)
+- Profil fotoğrafı yükleme aktif (küçültülüp kullanıcı verisine kaydedilir; kenar çubuğunda da görünür)
+- İpuçları ve motivasyon mesajları belirli aralıklarla kendiliğinden dönüyor
+- Odak sayacı çalışırken tüm sayfalarda üst çip ODAK SÜRESİ gösterir (kırmızı vurgulu)
+- Responsive: 900px altı yatay menü, tek kolon; 560px altı telefon düzeni (src/ui.css)

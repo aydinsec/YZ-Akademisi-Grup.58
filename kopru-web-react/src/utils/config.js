@@ -30,6 +30,19 @@ export const KOPRU_CONFIG = {
     { min: 0, tier: "yaygin" },
   ],
 
+  /* --- Odak ipuçları (otomatik döner) --- */
+  IPUCU_ARALIGI_SN: 12,
+  IPUCLARI: [
+    "Bildirimlerini kapat",
+    "Tek bir işe odaklan",
+    "Küçük adımlar, büyük ilerleme",
+    "Derin nefes al, devam et",
+    "Masanda su bulundur",
+    "Masanı topla, zihnini topla",
+    "Dikkat dağıtan düşünceleri not et",
+    "Molalarda esneme yap",
+  ],
+
   /* --- Motivasyon mesajları (otomatik döner) --- */
   MOTIVASYON_ARALIGI_SN: 30,
   MOTIVASYON: [
