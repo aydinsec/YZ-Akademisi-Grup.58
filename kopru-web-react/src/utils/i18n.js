@@ -344,6 +344,16 @@ export const EN = {
   "Tebrikler Kaptan! Seviye": "Congrats Captain! Level",
   "Ara bitti. Rotaya dönme zamanı! 🧭": "Break's over. Back on course! 🧭",
   "Verilerin dışa aktarıldı 📦": "Your data has been exported 📦",
+  /* Akvaryum */
+  "Akvaryum": "Aquarium",
+  "Kazandığın balıklar burada yüzüyor.": "The fish you earned swim here.",
+  "Akvaryumun henüz boş": "Your aquarium is still empty",
+  "Bir odak seansını tamamla; denizden gelen ilk balığın burada yüzmeye başlasın.":
+    "Complete a focus session and your first fish will start swimming here.",
+  "balık": "fish",
+  "Koleksiyonun büyüdükçe akvaryum şenlenir": "Your aquarium comes alive as your collection grows",
+  "Uzun seanslar daha nadir balıklar getirir.": "Longer sessions bring rarer fish.",
+
   /* Akıllı görev ayrıştırıcı */
   "YZ": "AI",
   "Aklındakileri yaz, görevlere böleyim": "Write what's on your mind, I'll split it into tasks",

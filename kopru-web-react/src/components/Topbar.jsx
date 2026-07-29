@@ -8,6 +8,7 @@ const PAGES = {
   tasks: ["Görevler", "Görevlerini planla, odaklan ve tamamla."],
   stats: ["İstatistikler", "Odaklanma yolculuğunu verilerle keşfet."],
   catches: ["Yakalamalarım", "Odaklandıkça denizin sana sundukları çoğalır."],
+  aquarium: ["Akvaryum", "Kazandığın balıklar burada yüzüyor."],
   settings: ["Ayarlar", "Deneyimini kişiselleştir, odak yolculuğunu özelleştir."],
   profile: ["Profilim", "Yolculuğunu görüntüle ve kişisel ayarlarını yönet."],
 };

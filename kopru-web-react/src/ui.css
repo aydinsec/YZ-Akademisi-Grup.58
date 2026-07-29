@@ -43,6 +43,56 @@
 /* Odak sayacı aktifken üstteki çip vurgusu */
 .session-chip.focus-on{background:var(--red-dark);box-shadow:0 6px 18px rgba(214,59,47,.4)}
 
+/* ---------- Akvaryum ---------- */
+.aq-tank{position:relative;width:100%;height:clamp(420px,64vh,660px);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg);background:#0b2d3e}
+.aq-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* cam parlaması */
+.aq-glass{position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,rgba(255,255,255,.14) 0%,rgba(255,255,255,0) 28%,rgba(255,255,255,0) 72%,rgba(255,255,255,.07) 100%);z-index:6}
+.aq-swim{position:absolute;inset:0;overflow:hidden}
+
+/* Balık yörüngesi: sağdan sola (varsayılan) / soldan sağa (.rev) */
+.aq-fish{position:absolute;left:0;padding:0;border:none;background:none;cursor:pointer;animation-name:aqswim;animation-timing-function:linear;animation-iteration-count:infinite;will-change:transform}
+.aq-fish.rev{animation-name:aqswim-rev}
+@keyframes aqswim{from{transform:translateX(105vw)}to{transform:translateX(-130px)}}
+@keyframes aqswim-rev{from{transform:translateX(-130px) scaleX(-1)}to{transform:translateX(105vw) scaleX(-1)}}
+/* içteki kap yukarı-aşağı salınır (yörüngeden bağımsız) */
+.aq-fish-in{display:block;width:100%;height:100%;border-radius:50%;overflow:hidden;border:2.5px solid var(--ring,rgba(255,255,255,.6));box-shadow:0 0 18px var(--glow,rgba(255,255,255,.3)),0 6px 16px rgba(0,0,0,.3);animation:aqbob var(--bobdur,4s) ease-in-out infinite;background:#0b2d3e}
+.aq-fish-in img{width:100%;height:100%;object-fit:cover;display:block}
+@keyframes aqbob{0%,100%{transform:translateY(calc(var(--bob,5px) * -1))}50%{transform:translateY(var(--bob,5px))}}
+.aq-fish:hover .aq-fish-in{border-color:#fff;box-shadow:0 0 26px var(--glow,rgba(255,255,255,.5)),0 8px 20px rgba(0,0,0,.35)}
+.aq-name{position:absolute;left:50%;bottom:-20px;transform:translateX(-50%);font-size:10.5px;font-weight:800;color:#fff;background:rgba(9,32,44,.6);backdrop-filter:blur(6px);padding:2px 8px;border-radius:7px;white-space:nowrap;opacity:0;transition:opacity .2s;pointer-events:none}
+.aq-fish:hover .aq-name{opacity:1}
+.aq-fish.rev .aq-name{transform:translateX(-50%) scaleX(-1)}
+.aq-tank.paused .aq-fish,.aq-tank.paused .aq-fish-in{animation-play-state:paused}
+
+/* HUD ve göstergeler */
+.aq-hud{position:absolute;top:16px;left:16px;right:16px;z-index:7;display:flex;align-items:center;gap:10px}
+.aq-hud-l{display:flex;gap:10px;flex-wrap:wrap}
+.aq-chip{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:11px;background:rgba(9,32,44,.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.25);color:#f2efe6;font-family:'Quicksand',sans-serif;font-weight:700;font-size:12.5px;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.aq-btn{margin-left:auto;cursor:pointer;transition:.18s}
+.aq-btn:hover{background:rgba(9,32,44,.85)}
+.aq-legend{position:absolute;bottom:16px;left:16px;z-index:7;display:flex;gap:8px;flex-wrap:wrap}
+.aq-leg{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:9px;background:rgba(9,32,44,.5);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.18);color:#e8f2f6;font-size:11px;font-weight:700}
+.aq-leg i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.aq-leg.yaygin i{background:#7fe0b0}.aq-leg.orta i{background:#e8b76d}
+.aq-leg.nadir i{background:#8b7ce0}.aq-leg.efsanevi i{background:#ffbe50}
+.aq-leg b{color:#fff}
+
+.aq-empty{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;color:#cfe6ef;padding:24px;background:rgba(6,26,36,.35)}
+.aq-empty .t{font-family:'Quicksand',sans-serif;font-weight:700;font-size:17px;color:#fff}
+.aq-empty .d{font-size:13.5px;max-width:380px;line-height:1.55;opacity:.85}
+
+/* Seçilen balık kartı */
+.aq-card{position:absolute;left:50%;bottom:64px;transform:translateX(-50%);z-index:9;display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:16px;background:rgba(9,32,44,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.25);box-shadow:0 14px 40px rgba(0,0,0,.45);color:#f2efe6;cursor:pointer;max-width:min(420px,92%);animation:aqpop .25s ease}
+@keyframes aqpop{from{opacity:0;transform:translateX(-50%) translateY(8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+.aq-card>img{width:74px;height:74px;border-radius:12px;object-fit:cover;flex-shrink:0}
+.aq-card .nm{font-family:'Quicksand',sans-serif;font-weight:700;font-size:16px;margin-bottom:4px}
+.aq-card .noname{opacity:.6;font-style:italic}
+.aq-card .rar{margin:0 0 6px}
+.aq-card .meta{display:flex;gap:14px;font-size:12px;opacity:.85;border:none;padding:0}
+.aq-card .meta span{display:inline-flex;align-items:center;gap:5px}
+.aq-card .dots-btn{color:#cfe6ef}
+
 /* ---------- Akıllı Görev Ayrıştırıcı (YZ paneli) ---------- */
 .ai-badge{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#1d5068,#3f8f9f);color:#fff;font-size:11px;font-weight:800;padding:4px 9px;border-radius:8px;letter-spacing:.04em}
 .ai-open{display:flex;align-items:center;gap:12px;width:100%;padding:14px 18px;border-radius:var(--r);border:1.5px dashed var(--line);background:var(--card);box-shadow:var(--shadow);transition:.18s;text-align:left}
@@ -126,4 +176,9 @@
   .ai-row{gap:6px}
   .ai-name{min-width:100%}
   .ai-sel select{padding:7px 26px 7px 9px;font-size:12px}
+  .aq-tank{height:56vh;min-height:340px}
+  .aq-card{bottom:56px;padding:10px 12px;gap:10px}
+  .aq-card>img{width:56px;height:56px}
+  .aq-legend{gap:5px;bottom:10px;left:10px}
+  .aq-leg{padding:5px 8px;font-size:10px}
 }

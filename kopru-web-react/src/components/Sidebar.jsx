@@ -6,6 +6,7 @@ const NAV = [
   ["tasks", "i-check-sq", "Görevler"],
   ["stats", "i-chart", "İstatistikler"],
   ["catches", "i-fish", "Yakalamalarım"],
+  ["aquarium", "i-aquarium", "Akvaryum"],
   ["settings", "i-gear", "Ayarlar"],
 ];
 

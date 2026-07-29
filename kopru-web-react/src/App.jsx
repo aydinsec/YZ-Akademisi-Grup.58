@@ -9,6 +9,7 @@ import Focus from "./pages/Focus.jsx";
 import Tasks from "./pages/Tasks.jsx";
 import Stats from "./pages/Stats.jsx";
 import Catches from "./pages/Catches.jsx";
+import Aquarium from "./pages/Aquarium.jsx";
 import Settings from "./pages/Settings.jsx";
 import Profile from "./pages/Profile.jsx";
 import { RAR_LBL } from "./utils/config.js";
@@ -73,6 +74,7 @@ function Shell() {
           {currentPage === "tasks" && <Tasks />}
           {currentPage === "stats" && <Stats />}
           {currentPage === "catches" && <Catches />}
+          {currentPage === "aquarium" && <Aquarium />}
           {currentPage === "settings" && <Settings />}
           {currentPage === "profile" && <Profile setCurrentPage={setCurrentPage} />}
         </main>
