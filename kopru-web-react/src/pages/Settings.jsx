@@ -125,6 +125,38 @@ export default function Settings() {
           </div>
 
           <div className="card set-group">
+            <div className="set-h"><svg width="18" height="18"><use href="#i-sparkles" /></svg> {t("Yapay Zeka (Görev Ayrıştırıcı)")}</div>
+            <div style={{ padding: "10px 22px 0", color: "var(--muted)", fontSize: "12.5px" }}>
+              {t("Görevler sayfasındaki ayrıştırıcı varsayılan olarak cihazında çalışır. Bir API anahtarı girersen daha güçlü bir dil modeli kullanılır; hata olursa otomatik olarak yerel motora döner.")}
+            </div>
+            <div className="set-row" style={{ marginTop: "8px" }}>
+              <div className="set-ic"><svg width="17" height="17"><use href="#i-globe" /></svg></div>
+              <div className="b"><div className="t">{t("Sağlayıcı")}</div><div className="d">{t("Anahtarın hangi servise ait?")}</div></div>
+              <div className="select">
+                <select value={s.aiProvider || "anthropic"} onChange={(e) => upd("aiProvider", e.target.value)}>
+                  <option value="anthropic">Anthropic (Claude)</option>
+                  <option value="openai">OpenAI</option>
+                </select>
+              </div>
+            </div>
+            <div className="set-row">
+              <div className="set-ic"><svg width="17" height="17"><use href="#i-lock" /></svg></div>
+              <div className="b">
+                <div className="t">{t("API Anahtarı")}</div>
+                <div className="d">{t("Boş bırakılırsa yerel ayrıştırıcı kullanılır. Anahtar yalnızca bu tarayıcıda saklanır.")}</div>
+              </div>
+              <input className="f-input" style={{ maxWidth: 200 }} type="password" placeholder={t("(boş = yerel motor)")}
+                value={s.aiKey || ""} onChange={(e) => upd("aiKey", e.target.value)} />
+            </div>
+            <div className="set-row">
+              <div className="set-ic"><svg width="17" height="17"><use href="#i-sliders" /></svg></div>
+              <div className="b"><div className="t">{t("Model")}</div><div className="d">{t("Boş bırakılırsa varsayılan model kullanılır.")}</div></div>
+              <input className="f-input" style={{ maxWidth: 200 }} placeholder={(s.aiProvider || "anthropic") === "openai" ? "gpt-4o-mini" : "claude-sonnet-5"}
+                value={s.aiModel || ""} onChange={(e) => upd("aiModel", e.target.value)} />
+            </div>
+          </div>
+
+          <div className="card set-group">
             <div className="set-h"><svg width="18" height="18"><use href="#i-cloud" /></svg> {t("Veri ve Senkronizasyon")}</div>
             <div className="set-row">
               <div className="set-ic"><svg width="17" height="17"><use href="#i-cloud" /></svg></div>

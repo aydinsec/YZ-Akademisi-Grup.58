@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useApp } from "../state/AppContext.jsx";
 import Modal from "../components/Modal.jsx";
+import SmartTaskParser from "../components/SmartTaskParser.jsx";
 import { iso, fmtMin } from "../utils/helpers.js";
 
 const CAT_META = {
@@ -100,8 +101,10 @@ export default function Tasks() {
           ))}
         </div>
 
+        {tab === "list" && <SmartTaskParser onAdded={() => setFilter("all")} />}
+
         {tab === "list" ? (
-          <div className="card">
+          <div className="card" style={{ marginTop: "16px" }}>
             <div className="task-toolbar">
               {[["all", "Tümü"], ["today", "Bugün"], ["upcoming", "Yaklaşan"], ["done", "Tamamlandı"]].map(([k, l]) => (
                 <button key={k} className={"pill" + (filter === k ? " active" : "")} onClick={() => setFilter(k)}>{t(l)}</button>

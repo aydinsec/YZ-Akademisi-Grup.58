@@ -43,6 +43,35 @@
 /* Odak sayacı aktifken üstteki çip vurgusu */
 .session-chip.focus-on{background:var(--red-dark);box-shadow:0 6px 18px rgba(214,59,47,.4)}
 
+/* ---------- Akıllı Görev Ayrıştırıcı (YZ paneli) ---------- */
+.ai-badge{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#1d5068,#3f8f9f);color:#fff;font-size:11px;font-weight:800;padding:4px 9px;border-radius:8px;letter-spacing:.04em}
+.ai-open{display:flex;align-items:center;gap:12px;width:100%;padding:14px 18px;border-radius:var(--r);border:1.5px dashed var(--line);background:var(--card);box-shadow:var(--shadow);transition:.18s;text-align:left}
+.ai-open:hover{border-color:var(--teal);transform:translateY(-1px)}
+.ai-open-t{font-family:'Quicksand',sans-serif;font-weight:700;font-size:14.5px;color:var(--text)}
+.ai-open-c{margin-left:auto;color:var(--muted2)}
+.ai-panel{overflow:hidden}
+.ai-body{padding:6px 20px 20px}
+.ai-hint{color:var(--muted);font-size:13px;margin-bottom:10px}
+.ai-textarea{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:13px 15px;font-family:inherit;font-size:14px;line-height:1.6;background:var(--card);color:var(--text);outline:none;resize:vertical;min-height:96px}
+.ai-textarea:focus{border-color:var(--teal)}
+.ai-actions{display:flex;align-items:center;gap:12px;margin-top:12px;flex-wrap:wrap}
+.ai-spin{width:13px;height:13px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;display:inline-block;animation:aispin .7s linear infinite}
+@keyframes aispin{to{transform:rotate(360deg)}}
+.ai-warn{display:flex;align-items:flex-start;gap:9px;margin-top:12px;padding:11px 14px;border-radius:11px;background:var(--orange-soft);color:var(--orange);font-size:12.5px;font-weight:600}
+.ai-result{margin-top:18px;border-top:1px solid var(--line-soft);padding-top:14px}
+.ai-result-h{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);margin-bottom:12px;flex-wrap:wrap}
+.ai-engine{margin-left:auto;font-size:11px;font-weight:800;padding:3px 10px;border-radius:7px;background:var(--line-soft);color:var(--muted)}
+.ai-engine.llm{background:var(--green-soft);color:var(--green)}
+.ai-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line-soft);flex-wrap:wrap}
+.ai-row:last-of-type{border-bottom:none}
+.ai-name{flex:1;min-width:180px;border:1px solid var(--line);border-radius:9px;padding:9px 12px;font-size:13.5px;font-weight:600;background:var(--card);color:var(--text);outline:none}
+.ai-name:focus{border-color:var(--teal)}
+.ai-sel select{padding:8px 30px 8px 11px;font-size:12.5px;border-radius:9px}
+.ai-sel::after{right:12px}
+.ai-dur{width:62px;border:1px solid var(--line);border-radius:9px;padding:9px 8px;font-size:12.5px;text-align:center;background:var(--card);color:var(--text);outline:none}
+.ai-dk{font-size:12px;color:var(--muted);margin-left:-4px}
+.ai-footer{display:flex;justify-content:flex-end;gap:12px;margin-top:16px}
+
 /* ---------- Mobil uyumluluk ---------- */
 @media (max-width: 1100px){
   #page-focus{grid-template-columns:1fr !important}
@@ -94,4 +123,7 @@
   .scene-tr{top:10px;right:10px}
   .tabs{gap:18px;overflow-x:auto}
   .catch-toolbar .searchbox{width:100%}
+  .ai-row{gap:6px}
+  .ai-name{min-width:100%}
+  .ai-sel select{padding:7px 26px 7px 9px;font-size:12px}
 }
