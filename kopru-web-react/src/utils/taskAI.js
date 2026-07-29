@@ -33,9 +33,27 @@ function splitByVe(s) {
   return out;
 }
 
+/* Kopyala-yapıştırdan gelen "yumuşak" satır sonlarını birleştirir.
+   Bir satır noktalama olmadan bitiyor ve alt satır küçük harfle
+   başlıyorsa, bu bir cümle devamıdır — madde işaretli satırlara dokunulmaz. */
+function unwrapSoftBreaks(text) {
+  const lines = text.replace(/\r/g, "").split("\n");
+  const out = [];
+  for (const raw of lines) {
+    const line = raw.trim();
+    if (!line) { out.push(""); continue; }
+    const prev = out.length ? out[out.length - 1] : "";
+    const isMarker = /^(?:[-•*–—]|\d+[.)])\s+/.test(line);          // "- madde" / "1) madde"
+    const prevOpen = prev && !/[.;:!?,]$/.test(prev);                // önceki satır noktalamayla bitmemiş
+    const contLower = /^[a-zçğıöşüà-ÿ]/.test(line);                  // alt satır küçük harfle başlıyor
+    if (prev && prevOpen && contLower && !isMarker) out[out.length - 1] = prev + " " + line;
+    else out.push(line);
+  }
+  return out.join("\n");
+}
+
 function splitItems(text) {
-  const parts = text
-    .replace(/\r/g, "")
+  const parts = unwrapSoftBreaks(text)
     /* madde işaretleri ve numaralandırma */
     .replace(/^[\s]*[-•*–—]\s*/gm, "\n")
     .replace(/^\s*\d+[.)]\s*/gm, "\n")
