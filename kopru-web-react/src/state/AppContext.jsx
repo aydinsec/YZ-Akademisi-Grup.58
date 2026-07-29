@@ -103,6 +103,16 @@ export function AppProvider({ children }) {
     const tier = C.NADIRLIK_ESIKLERI.find((e) => minutes >= e.min).tier;
     let pool = catalog.filter((f) => f.tier === tier);
     if (!pool.length) pool = catalog;
+    /* Çeşitlilik: önce hiç yakalanmamış türlerden seç, hepsi toplandıysa
+       en az sahip olunanlar arasından rastgele — aynı balık üst üste gelmesin */
+    const sahip = Storage.get("fish", []).map((x) => x.file);
+    const yeni = pool.filter((p) => !sahip.includes(p.file));
+    if (yeni.length) pool = yeni;
+    else {
+      const sayac = pool.map((p) => sahip.filter((s) => s === p.file).length);
+      const enAz = Math.min(...sayac);
+      pool = pool.filter((_, i) => sayac[i] === enAz);
+    }
     const pick = pool[Math.floor(Math.random() * pool.length)];
     const f = { id: Date.now(), name: "", file: pick.file, tier, minutes, date: iso(), isNew: true };
     Storage.update("fish", (a) => { a.unshift(f); return a; }, []);

@@ -34,6 +34,11 @@ export function weekDays(offset = 0) {
     return iso(d);
   });
 }
+/* Balık görseli yolu — eski kayıtlardaki .jpg adları da PNG'ye eşlenir */
+export function fishSrc(file) {
+  return "assets/fish/" + String(file || "").replace(/\.(jpe?g|webp)$/i, ".png");
+}
+
 /* Profil fotoğrafını 256px'e küçültüp dataURL döndürür (localStorage'a sığması için) */
 export function readAvatar(file) {
   return new Promise((resolve, reject) => {

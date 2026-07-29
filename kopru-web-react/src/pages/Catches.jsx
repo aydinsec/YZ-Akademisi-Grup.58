@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useApp } from "../state/AppContext.jsx";
 import Modal from "../components/Modal.jsx";
 import { RAR_LBL } from "../utils/config.js";
-import { iso, fmtMin, trDate, weekDays } from "../utils/helpers.js";
+import { iso, fmtMin, trDate, weekDays, fishSrc } from "../utils/helpers.js";
 
 function streak(sessions) {
   const days = new Set(sessions.map((s) => s.date));
@@ -115,7 +115,7 @@ export default function Catches() {
             const mine = fish.filter((f) => f.file === cf.file);
             return (
               <div className="card fish-card" key={cf.file} style={has ? {} : { opacity: 0.45, filter: "grayscale(1)" }}>
-                <div className="img"><img src={`assets/fish/${cf.file}`} alt="" loading="lazy" /></div>
+                <div className="img"><img src={fishSrc(cf.file)} alt="" loading="lazy" /></div>
                 <div className="nm">{has ? (mine[0].name || <span className="noname">{t("İsimsiz")}</span>) : "???"}</div>
                 <div className={"rar " + cf.tier}><i></i> {t(RAR_LBL[cf.tier])}{has && mine.length > 1 ? " · ×" + mine.length : ""}</div>
                 <div className="meta"><span>{has ? t("Yakalandı") : t("Henüz yakalanmadı")}</span></div>
@@ -143,7 +143,7 @@ export default function Catches() {
                   </button>
                 </div>
               )}
-              <div className="img"><img src={`assets/fish/${f.file}`} alt={f.name || "Balık"} loading="lazy" /></div>
+              <div className="img"><img src={fishSrc(f.file)} alt={f.name || "Balık"} loading="lazy" /></div>
               <div className="nm">
                 {f.name || <span className="noname">{t("İsimsiz")}</span>}{" "}
                 <button onClick={() => { setNameVal(f.name); setNaming(f.id); }} aria-label="İsim ver">
@@ -172,7 +172,7 @@ export default function Catches() {
       {naming !== null && (
         <Modal title={t("Balığa İsim Ver")} onClose={() => setNaming(null)}>
           {(() => { const f = fish.find((x) => x.id === naming); return f ? (
-            <div className="fish-name-preview"><img src={`assets/fish/${f.file}`} alt="Balık" /></div>
+            <div className="fish-name-preview"><img src={fishSrc(f.file)} alt="Balık" /></div>
           ) : null; })()}
           <label className="f-label">{t("Balık adı")}</label>
           <input className="f-input" value={nameVal} autoFocus

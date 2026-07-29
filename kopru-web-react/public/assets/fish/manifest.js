@@ -1,371 +1,359 @@
 // Bu dosya balik_guncelle.py tarafından üretilir — elle düzenleme.
 window.FISH_CATALOG = [
  {
-  "file": "balik_001.jpg",
-  "tier": "orta"
- },
- {
-  "file": "balik_002.jpg",
+  "file": "balik_001.png",
   "tier": "yaygin"
  },
  {
-  "file": "balik_003.jpg",
-  "tier": "orta"
- },
- {
-  "file": "balik_004.jpg",
+  "file": "balik_002.png",
   "tier": "nadir"
  },
  {
-  "file": "balik_005.jpg",
+  "file": "balik_003.png",
+  "tier": "yaygin"
+ },
+ {
+  "file": "balik_004.png",
+  "tier": "yaygin"
+ },
+ {
+  "file": "balik_005.png",
   "tier": "efsanevi"
  },
  {
-  "file": "balik_006.jpg",
-  "tier": "orta"
- },
- {
-  "file": "balik_007.jpg",
+  "file": "balik_006.png",
   "tier": "nadir"
  },
  {
-  "file": "balik_008.jpg",
-  "tier": "yaygin"
- },
- {
-  "file": "balik_009.jpg",
-  "tier": "yaygin"
- },
- {
-  "file": "balik_010.jpg",
-  "tier": "yaygin"
- },
- {
-  "file": "balik_011.jpg",
-  "tier": "orta"
- },
- {
-  "file": "balik_012.jpg",
-  "tier": "orta"
- },
- {
-  "file": "balik_013.jpg",
-  "tier": "nadir"
- },
- {
-  "file": "balik_014.jpg",
-  "tier": "yaygin"
- },
- {
-  "file": "balik_015.jpg",
-  "tier": "nadir"
- },
- {
-  "file": "balik_016.jpg",
-  "tier": "nadir"
- },
- {
-  "file": "balik_017.jpg",
-  "tier": "nadir"
- },
- {
-  "file": "balik_018.jpg",
+  "file": "balik_007.png",
   "tier": "efsanevi"
  },
  {
-  "file": "balik_019.jpg",
-  "tier": "orta"
- },
- {
-  "file": "balik_020.jpg",
-  "tier": "yaygin"
- },
- {
-  "file": "balik_021.jpg",
-  "tier": "nadir"
- },
- {
-  "file": "balik_022.jpg",
-  "tier": "orta"
- },
- {
-  "file": "balik_023.jpg",
-  "tier": "nadir"
- },
- {
-  "file": "balik_024.jpg",
+  "file": "balik_008.png",
   "tier": "efsanevi"
  },
  {
-  "file": "balik_025.jpg",
+  "file": "balik_009.png",
   "tier": "orta"
  },
  {
-  "file": "balik_026.jpg",
+  "file": "balik_010.png",
   "tier": "nadir"
  },
  {
-  "file": "balik_027.jpg",
+  "file": "balik_011.png",
   "tier": "yaygin"
  },
  {
-  "file": "balik_028.jpg",
+  "file": "balik_012.png",
+  "tier": "orta"
+ },
+ {
+  "file": "balik_013.png",
+  "tier": "yaygin"
+ },
+ {
+  "file": "balik_014.png",
+  "tier": "yaygin"
+ },
+ {
+  "file": "balik_015.png",
+  "tier": "yaygin"
+ },
+ {
+  "file": "balik_016.png",
+  "tier": "yaygin"
+ },
+ {
+  "file": "balik_017.png",
+  "tier": "orta"
+ },
+ {
+  "file": "balik_018.png",
+  "tier": "yaygin"
+ },
+ {
+  "file": "balik_019.png",
+  "tier": "orta"
+ },
+ {
+  "file": "balik_020.png",
+  "tier": "orta"
+ },
+ {
+  "file": "balik_021.png",
+  "tier": "orta"
+ },
+ {
+  "file": "balik_022.png",
+  "tier": "nadir"
+ },
+ {
+  "file": "balik_023.png",
+  "tier": "yaygin"
+ },
+ {
+  "file": "balik_024.png",
   "tier": "efsanevi"
  },
  {
-  "file": "balik_029.jpg",
+  "file": "balik_025.png",
+  "tier": "nadir"
+ },
+ {
+  "file": "balik_026.png",
+  "tier": "orta"
+ },
+ {
+  "file": "balik_027.png",
+  "tier": "orta"
+ },
+ {
+  "file": "balik_028.png",
+  "tier": "orta"
+ },
+ {
+  "file": "balik_029.png",
   "tier": "yaygin"
  },
  {
-  "file": "balik_030.jpg",
+  "file": "balik_030.png",
+  "tier": "yaygin"
+ },
+ {
+  "file": "balik_031.png",
+  "tier": "yaygin"
+ },
+ {
+  "file": "balik_032.png",
+  "tier": "yaygin"
+ },
+ {
+  "file": "balik_033.png",
+  "tier": "orta"
+ },
+ {
+  "file": "balik_034.png",
+  "tier": "orta"
+ },
+ {
+  "file": "balik_035.png",
+  "tier": "yaygin"
+ },
+ {
+  "file": "balik_036.png",
+  "tier": "yaygin"
+ },
+ {
+  "file": "balik_037.png",
+  "tier": "yaygin"
+ },
+ {
+  "file": "balik_038.png",
+  "tier": "yaygin"
+ },
+ {
+  "file": "balik_039.png",
+  "tier": "nadir"
+ },
+ {
+  "file": "balik_040.png",
+  "tier": "orta"
+ },
+ {
+  "file": "balik_041.png",
+  "tier": "nadir"
+ },
+ {
+  "file": "balik_042.png",
   "tier": "efsanevi"
  },
  {
-  "file": "balik_031.jpg",
-  "tier": "nadir"
- },
- {
-  "file": "balik_032.jpg",
-  "tier": "orta"
- },
- {
-  "file": "balik_033.jpg",
-  "tier": "nadir"
- },
- {
-  "file": "balik_034.jpg",
+  "file": "balik_043.png",
   "tier": "yaygin"
  },
  {
-  "file": "balik_035.jpg",
-  "tier": "orta"
- },
- {
-  "file": "balik_036.jpg",
-  "tier": "orta"
- },
- {
-  "file": "balik_037.jpg",
+  "file": "balik_044.png",
   "tier": "yaygin"
  },
  {
-  "file": "balik_038.jpg",
-  "tier": "nadir"
- },
- {
-  "file": "balik_039.jpg",
-  "tier": "orta"
- },
- {
-  "file": "balik_040.jpg",
-  "tier": "orta"
- },
- {
-  "file": "balik_041.jpg",
-  "tier": "yaygin"
- },
- {
-  "file": "balik_042.jpg",
-  "tier": "nadir"
- },
- {
-  "file": "balik_043.jpg",
-  "tier": "nadir"
- },
- {
-  "file": "balik_044.jpg",
-  "tier": "nadir"
- },
- {
-  "file": "balik_045.jpg",
-  "tier": "yaygin"
- },
- {
-  "file": "balik_046.jpg",
-  "tier": "yaygin"
- },
- {
-  "file": "balik_047.jpg",
-  "tier": "orta"
- },
- {
-  "file": "balik_048.jpg",
-  "tier": "nadir"
- },
- {
-  "file": "balik_049.jpg",
-  "tier": "nadir"
- },
- {
-  "file": "balik_050.jpg",
-  "tier": "yaygin"
- },
- {
-  "file": "balik_051.jpg",
+  "file": "balik_045.png",
   "tier": "efsanevi"
  },
  {
-  "file": "balik_052.jpg",
-  "tier": "orta"
+  "file": "balik_046.png",
+  "tier": "nadir"
  },
  {
-  "file": "balik_053.jpg",
+  "file": "balik_047.png",
+  "tier": "nadir"
+ },
+ {
+  "file": "balik_048.png",
   "tier": "yaygin"
  },
  {
-  "file": "balik_054.jpg",
+  "file": "balik_049.png",
+  "tier": "yaygin"
+ },
+ {
+  "file": "balik_050.png",
+  "tier": "yaygin"
+ },
+ {
+  "file": "balik_051.png",
   "tier": "orta"
  },
  {
-  "file": "balik_055.jpg",
+  "file": "balik_052.png",
+  "tier": "yaygin"
+ },
+ {
+  "file": "balik_053.png",
+  "tier": "yaygin"
+ },
+ {
+  "file": "balik_054.png",
+  "tier": "nadir"
+ },
+ {
+  "file": "balik_055.png",
   "tier": "orta"
  },
  {
-  "file": "balik_056.jpg",
+  "file": "balik_057.png",
   "tier": "efsanevi"
  },
  {
-  "file": "balik_057.jpg",
-  "tier": "yaygin"
- },
- {
-  "file": "balik_058.jpg",
+  "file": "balik_058.png",
   "tier": "nadir"
  },
  {
-  "file": "balik_059.jpg",
-  "tier": "orta"
- },
- {
-  "file": "balik_060.jpg",
+  "file": "balik_059.png",
   "tier": "yaygin"
  },
  {
-  "file": "balik_061.jpg",
+  "file": "balik_060.png",
+  "tier": "orta"
+ },
+ {
+  "file": "balik_061.png",
+  "tier": "yaygin"
+ },
+ {
+  "file": "balik_062.png",
   "tier": "efsanevi"
  },
  {
-  "file": "balik_062.jpg",
-  "tier": "orta"
+  "file": "balik_063.png",
+  "tier": "nadir"
  },
  {
-  "file": "balik_063.jpg",
+  "file": "balik_064.png",
   "tier": "yaygin"
  },
  {
-  "file": "balik_064.jpg",
+  "file": "balik_065.png",
   "tier": "orta"
  },
  {
-  "file": "balik_065.jpg",
+  "file": "balik_067.png",
   "tier": "nadir"
  },
  {
-  "file": "balik_066.jpg",
+  "file": "balik_068.png",
   "tier": "orta"
  },
  {
-  "file": "balik_067.jpg",
-  "tier": "nadir"
- },
- {
-  "file": "balik_068.jpg",
+  "file": "balik_069.png",
   "tier": "orta"
  },
  {
-  "file": "balik_069.jpg",
-  "tier": "nadir"
+  "file": "balik_070.png",
+  "tier": "yaygin"
  },
  {
-  "file": "balik_070.jpg",
-  "tier": "orta"
+  "file": "balik_071.png",
+  "tier": "yaygin"
  },
  {
-  "file": "balik_071.jpg",
-  "tier": "orta"
- },
- {
-  "file": "balik_072.jpg",
-  "tier": "orta"
- },
- {
-  "file": "balik_073.jpg",
+  "file": "balik_072.png",
   "tier": "efsanevi"
  },
  {
-  "file": "balik_074.jpg",
+  "file": "balik_073.png",
   "tier": "yaygin"
  },
  {
-  "file": "balik_075.jpg",
-  "tier": "yaygin"
- },
- {
-  "file": "balik_076.jpg",
+  "file": "balik_074.png",
   "tier": "orta"
  },
  {
-  "file": "balik_077.jpg",
-  "tier": "yaygin"
- },
- {
-  "file": "balik_078.jpg",
-  "tier": "yaygin"
- },
- {
-  "file": "balik_079.jpg",
-  "tier": "yaygin"
- },
- {
-  "file": "balik_080.jpg",
+  "file": "balik_075.png",
   "tier": "orta"
  },
  {
-  "file": "balik_081.jpg",
+  "file": "balik_076.png",
   "tier": "nadir"
  },
  {
-  "file": "balik_082.jpg",
-  "tier": "nadir"
- },
- {
-  "file": "balik_083.jpg",
+  "file": "balik_078.png",
   "tier": "yaygin"
  },
  {
-  "file": "balik_084.jpg",
+  "file": "balik_079.png",
+  "tier": "nadir"
+ },
+ {
+  "file": "balik_080.png",
+  "tier": "yaygin"
+ },
+ {
+  "file": "balik_081.png",
+  "tier": "orta"
+ },
+ {
+  "file": "balik_082.png",
+  "tier": "yaygin"
+ },
+ {
+  "file": "balik_083.png",
+  "tier": "yaygin"
+ },
+ {
+  "file": "balik_084.png",
+  "tier": "orta"
+ },
+ {
+  "file": "balik_085.png",
+  "tier": "orta"
+ },
+ {
+  "file": "balik_086.png",
+  "tier": "orta"
+ },
+ {
+  "file": "balik_087.png",
+  "tier": "orta"
+ },
+ {
+  "file": "balik_088.png",
   "tier": "efsanevi"
  },
  {
-  "file": "balik_085.jpg",
+  "file": "balik_089.png",
   "tier": "yaygin"
  },
  {
-  "file": "balik_086.jpg",
-  "tier": "yaygin"
+  "file": "balik_090.png",
+  "tier": "orta"
  },
  {
-  "file": "balik_087.jpg",
-  "tier": "nadir"
+  "file": "balik_091.png",
+  "tier": "orta"
  },
  {
-  "file": "balik_088.jpg",
-  "tier": "nadir"
- },
- {
-  "file": "balik_089.jpg",
-  "tier": "nadir"
- },
- {
-  "file": "balik_090.jpg",
-  "tier": "yaygin"
- },
- {
-  "file": "balik_091.jpg",
-  "tier": "yaygin"
- },
- {
-  "file": "balik_092.jpg",
+  "file": "balik_092.png",
   "tier": "orta"
  }
 ];

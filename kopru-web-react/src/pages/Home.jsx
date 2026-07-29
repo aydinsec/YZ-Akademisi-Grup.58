@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useApp } from "../state/AppContext.jsx";
 import Modal from "../components/Modal.jsx";
-import { iso, fmt, fmtMin } from "../utils/helpers.js";
+import { iso, fmt, fmtMin, fishSrc } from "../utils/helpers.js";
 
 function streak(sessions) {
   const days = new Set(sessions.map((s) => s.date));
@@ -116,7 +116,7 @@ function Home({ setCurrentPage }) {
             <div className="fish-big">
               <div className="cir">
                 {fish[0]
-                  ? <img src={`assets/fish/${fish[0].file}`} alt="" />
+                  ? <img src={fishSrc(fish[0].file)} alt="" />
                   : <svg width="34" height="34" style={{ color: "var(--teal)" }}><use href="#i-fish" /></svg>}
               </div>
               <div>

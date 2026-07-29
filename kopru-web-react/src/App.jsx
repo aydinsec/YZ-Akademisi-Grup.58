@@ -13,6 +13,7 @@ import Aquarium from "./pages/Aquarium.jsx";
 import Settings from "./pages/Settings.jsx";
 import Profile from "./pages/Profile.jsx";
 import { RAR_LBL } from "./utils/config.js";
+import { fishSrc } from "./utils/helpers.js";
 
 /* Seans bitince otomatik yakalanan balığa isim verme penceresi */
 function FishNamingModal() {
@@ -34,7 +35,7 @@ function FishNamingModal() {
       <p style={{ color: "var(--muted)", fontSize: "13.5px", marginBottom: "12px" }}>
         {pendingFish.minutes} {t("dakikalık odak seansın denizden")} <b>{t(RAR_LBL[pendingFish.tier])}</b> {t("bir balık getirdi. Ona bir isim ver:")}
       </p>
-      <div className="fish-name-preview"><img src={`assets/fish/${pendingFish.file}`} alt="" /></div>
+      <div className="fish-name-preview"><img src={fishSrc(pendingFish.file)} alt="" /></div>
       <label className="f-label">{t("Balık adı")}</label>
       <input className="f-input" value={name} autoFocus
         onChange={(e) => setName(e.target.value)}
