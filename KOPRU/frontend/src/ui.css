@@ -106,12 +106,13 @@
 
 /* Balık: dikey salınım + tıklanabilir */
 .aq-fish{position:relative;display:block;padding:0;border:none;background:none;cursor:pointer;animation:aqbob var(--bobdur,3.5s) ease-in-out infinite;filter:drop-shadow(0 6px 12px rgba(0,20,30,.35))}
-/* Balık görselleri sola bakar; hareket yönüyle birebir aynı zamanlamada çevrilir,
-   böylece balık hep gittiği yöne bakar (aq-lane ile aynı yüzde noktalarında döner) */
+/* Balık görsellerinin tamamı SAĞA bakar; hareket yönüyle birebir aynı
+   zamanlamada çevrilir, böylece balık hep gittiği yöne bakar
+   (aq-lane ile aynı yüzde noktalarında döner) */
 .aq-fish img{height:100%;width:auto;display:block;animation-name:aqflip-sol;animation-timing-function:linear;animation-iteration-count:infinite}
 .aq-lane.sag .aq-fish img{animation-name:aqflip-sag}
-@keyframes aqflip-sol{0%,49.9%{transform:scaleX(-1)}50%,100%{transform:scaleX(1)}}
-@keyframes aqflip-sag{0%,49.9%{transform:scaleX(1)}50%,100%{transform:scaleX(-1)}}
+@keyframes aqflip-sol{0%,49.9%{transform:scaleX(1)}50%,100%{transform:scaleX(-1)}}
+@keyframes aqflip-sag{0%,49.9%{transform:scaleX(-1)}50%,100%{transform:scaleX(1)}}
 .aq-lane.still .aq-fish img{animation:none !important;transform:scaleX(1)}
 @keyframes aqbob{0%,100%{transform:translateY(calc(var(--bob,6px) * -1)) rotate(-1.5deg)}50%{transform:translateY(var(--bob,6px)) rotate(1.5deg)}}
 .aq-lane.still .aq-fish{animation:aqbob-hafif var(--bobdur,4.5s) ease-in-out infinite}
