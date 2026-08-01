@@ -19,7 +19,7 @@ const PRESETS = [
 ];
 
 function Home({ setCurrentPage }) {
-  const { get, set, rev, timer, toggleTimer, setDuration, setMode, addXp, toast, t, C } = useApp();
+  const { get, set, rev, timer, toggleTimer, setDuration, finishEarly, addXp, toast, t, C } = useApp();
   void rev;
   const [custom, setCustom] = useState(false);
   const [customMin, setCustomMin] = useState(30);
@@ -31,8 +31,9 @@ function Home({ setCurrentPage }) {
   const today = iso();
   const todaySes = sessions.filter((s) => s.date === today);
   const fishToday = fish.filter((f) => f.date === today);
+  const todayDone = todaySes.filter((s) => s.completed !== false);
   const starts = get("starts", {})[today] || 0;
-  const rate = starts ? Math.min(100, Math.round((todaySes.length / starts) * 100)) : todaySes.length ? 100 : 0;
+  const rate = starts ? Math.min(100, Math.round((todayDone.length / starts) * 100)) : todayDone.length ? 100 : 0;
   const totalMin = sessions.reduce((a, s) => a + s.minutes, 0);
   const three = tasks.filter((tk) => tk.group === "today").slice(0, 3);
 
@@ -51,19 +52,18 @@ function Home({ setCurrentPage }) {
           <div>
             <div className="inner">
               <div className="tag"><svg width="20" height="20"><use href="#i-waves" /></svg> {t("Odak Zamanı")}</div>
-              <div className="clock">{fmt(timer.sec)}</div>
-              <div className="select mode-dd">
-                <select value={timer.mode} onChange={(e) => setMode(e.target.value)}>
-                  <option value="derin">{t("Derin Odak")}</option>
-                  <option value="orta">{t("Orta Odak")}</option>
-                  <option value="hafif">{t("Hafif Odak")}</option>
-                </select>
+              <div className="clock" style={{ marginBottom: "18px" }}>{fmt(timer.sec)}</div>
+              <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+                <button className="btn-red" onClick={toggleTimer}>
+                  <svg width="17" height="17"><use href={timer.running ? "#i-pause" : "#i-play"} /></svg>
+                  <span>{timer.running ? t("Duraklat") : timer.sec < timer.total ? t("Devam Et") : t("Odak Modunu Başlat")}</span>
+                </button>
+                {timer.sec < timer.total && (
+                  <button className="btn-outline" onClick={finishEarly}>
+                    <svg width="16" height="16"><use href="#i-check-c" /></svg> {t("Bitir")}
+                  </button>
+                )}
               </div>
-              <br />
-              <button className="btn-red" onClick={toggleTimer}>
-                <svg width="17" height="17"><use href={timer.running ? "#i-pause" : "#i-play"} /></svg>
-                <span>{timer.running ? t("Duraklat") : timer.sec < timer.total ? t("Devam Et") : t("Odak Modunu Başlat")}</span>
-              </button>
             </div>
 
             <div className="presets">

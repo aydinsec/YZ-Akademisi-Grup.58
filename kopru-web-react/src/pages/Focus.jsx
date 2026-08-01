@@ -5,7 +5,7 @@ import { Cam } from "../utils/camera.js";
 import { iso, fmtMin } from "../utils/helpers.js";
 
 export default function Focus() {
-  const { get, rev, timer, toggleTimer, setDuration, toast, t, ipucu, tipIdx, C } = useApp();
+  const { get, rev, timer, toggleTimer, setDuration, finishEarly, toast, t, ipucu, tipIdx, C } = useApp();
   void rev;
 
   const [isCamOpen, setIsCamOpen] = useState(Cam.running);
@@ -18,8 +18,9 @@ export default function Focus() {
   const today = iso();
   const todaySes = sessions.filter((s) => s.date === today);
   const todayWarn = warnings.filter((w) => iso(new Date(w.time)) === today);
+  const todayDone = todaySes.filter((s) => s.completed !== false);
   const dMin = todaySes.reduce((a, s) => a + s.minutes, 0);
-  const goal = Math.min(100, Math.round((todaySes.length / 5) * 100));
+  const goal = Math.min(100, Math.round((todayDone.length / 5) * 100));
   const preview = get("settings", {}).preview !== false;
 
   const mm = String(Math.floor(timer.sec / 60)).padStart(2, "0");
@@ -85,6 +86,11 @@ export default function Focus() {
               <button className="scene-btn sc-break" onClick={() => { setDuration(5, true); toggleTimer(); }}>
                 <svg width="15" height="15"><use href="#i-coffee" /></svg> {t("Kısa Ara (5 dk)")}
               </button>
+              {timer.sec < timer.total && (
+                <button className="scene-btn sc-break" onClick={finishEarly}>
+                  <svg width="15" height="15"><use href="#i-check-c" /></svg> {t("Bitir")}
+                </button>
+              )}
             </div>
             <div className="sc-prog">
               <div className="bar"><i style={{ width: `${pct}%` }}></i></div>
@@ -206,7 +212,7 @@ export default function Focus() {
               </div>
               <div className="daily-row">
                 <div className="mini-ic"><svg width="16" height="16"><use href="#i-target" /></svg></div>
-                <span className="k">{t("Tamamlanan Seans")}</span><span className="v">{todaySes.length} / 5</span>
+                <span className="k">{t("Tamamlanan Seans")}</span><span className="v">{todayDone.length} / 5</span>
               </div>
               <div className="daily-row">
                 <div className="mini-ic"><svg width="16" height="16"><use href="#i-anchor" /></svg></div>

@@ -344,6 +344,9 @@ export const EN = {
   "Tebrikler Kaptan! Seviye": "Congrats Captain! Level",
   "Ara bitti. Rotaya dönme zamanı! 🧭": "Break's over. Back on course! 🧭",
   "Verilerin dışa aktarıldı 📦": "Your data has been exported 📦",
+  "Bitir": "Finish",
+  "Seans erken bitirildi": "Session ended early",
+  "istatistiklere eklendi": "added to statistics",
 };
 
 /* Motivasyon & ipuçları (EN sürümleri config'teki sırayla eşleşir) */
