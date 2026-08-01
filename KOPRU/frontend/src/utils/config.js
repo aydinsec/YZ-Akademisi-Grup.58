@@ -6,6 +6,11 @@
 /* Backend API adresi. Prod'a çıkarken bunu gerçek sunucu adresiyle değiştir. */
 export const API_BASE = "http://localhost:8000";
 
+/* Google ile giriş — console.cloud.google.com üzerinden alınan OAuth istemci
+   kimliği (Web application). Aynı değeri backend'de GOOGLE_CLIENT_ID ortam
+   değişkenine de girin. Boş bırakılırsa Google butonu gizlenir. */
+export const GOOGLE_CLIENT_ID = "";
+
 export const KOPRU_CONFIG = {
   /* --- Odak takibi (realtime_uyari.py) --- */
   KAPALI_SURE_ESIGI: 2.0,

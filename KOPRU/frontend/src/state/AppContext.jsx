@@ -241,6 +241,16 @@ export function AppProvider({ children }) {
     toast("Hoş geldin, " + p.name + "! ⚓");
   }, [applySettings, toast, bump]);
 
+  /* Google ile giriş — GIS'ten gelen kimlik jetonu backend'de doğrulanır */
+  const loginWithGoogle = useCallback(async (credential, remember) => {
+    await Storage.googleLogin(credential, remember);
+    applySettings();
+    setUser(Storage.user);
+    bump();
+    const p = Storage.get("profile", { name: "Kaptan" });
+    toast("Hoş geldin, " + p.name + "! ⚓");
+  }, [applySettings, toast, bump]);
+
   const logout = useCallback(() => { Cam.stop(); Storage.logout(); setUser(null); }, []);
 
   const [authChecked, setAuthChecked] = useState(false);
@@ -262,7 +272,7 @@ export function AppProvider({ children }) {
   }, [toast]);
 
   const value = {
-    user, login, logout, rev, bump, authChecked,
+    user, login, loginWithGoogle, logout, rev, bump, authChecked,
     get, set, profile, addXp, addNotif, setAvatar, toast, toastMsg,
     applyTheme, applySettings,
     lang, setLang, t, motivasyon, ipucu,

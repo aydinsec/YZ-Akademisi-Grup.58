@@ -1,3 +1,5 @@
+import json
+import os
 from datetime import datetime, timedelta, timezone
 
 import bcrypt
@@ -12,6 +14,51 @@ import models
 SECRET_KEY = "kopru-cok-gizli-anahtar-degistir-bunu"
 ALGORITHM = "HS256"
 TOKEN_GECERLILIK_GUN = 7
+
+# ---------------------------------------------------------------------------
+# Google ile giriş
+# console.cloud.google.com → APIs & Services → Credentials → OAuth client ID
+# (Web application) oluşturup istemci kimliğini buraya ya da GOOGLE_CLIENT_ID
+# ortam değişkenine yazın. Aynı değeri frontend/src/utils/config.js içine de girin.
+# Boş bırakılırsa Google butonu gizlenir, e-posta/şifre girişi çalışmaya devam eder.
+# ---------------------------------------------------------------------------
+GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID", "")
+
+
+def verify_google_token(credential: str) -> dict:
+    """Google kimlik jetonunu doğrular ve içindeki kullanıcı bilgisini döndürür.
+
+    Önce google-auth kütüphanesiyle yerel doğrulama denenir; kurulu değilse
+    Google'ın tokeninfo uç noktasına düşülür.
+    """
+    try:
+        from google.auth.transport import requests as google_requests
+        from google.oauth2 import id_token
+
+        return id_token.verify_oauth2_token(
+            credential, google_requests.Request(), GOOGLE_CLIENT_ID
+        )
+    except ImportError:
+        pass
+    except Exception:
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Google doğrulaması başarısız")
+
+    # Yedek yol: Google'ın kendi doğrulama uç noktası
+    try:
+        import urllib.request
+
+        with urllib.request.urlopen(
+            "https://oauth2.googleapis.com/tokeninfo?id_token=" + credential, timeout=10
+        ) as cevap:
+            bilgi = json.loads(cevap.read().decode("utf-8"))
+    except Exception:
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Google doğrulaması başarısız")
+
+    if bilgi.get("aud") != GOOGLE_CLIENT_ID:
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Jeton bu uygulamaya ait değil")
+    if bilgi.get("iss") not in ("accounts.google.com", "https://accounts.google.com"):
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Jeton kaynağı geçersiz")
+    return bilgi
 
 bearer_scheme = HTTPBearer(auto_error=False)
 

@@ -16,6 +16,7 @@ import { useApp } from "../state/AppContext.jsx";
 export default function BoatScene({ isRunning, minutes, seconds, children }) {
   const containerRef = useRef(null);
   const guiRef = useRef(null);
+  const guiHostRef = useRef(null);
   const runningRef = useRef(isRunning);
   const { t } = useApp();
 
@@ -25,16 +26,19 @@ export default function BoatScene({ isRunning, minutes, seconds, children }) {
   /* koşu hızını sahneyi yeniden kurmadan güncelle */
   useEffect(() => { runningRef.current = isRunning; }, [isRunning]);
 
-  const toggleSettings = useCallback(() => {
-    setSettingsOpen((prev) => {
-      const next = !prev;
-      if (guiRef.current) guiRef.current.show(next);
-      return next;
-    });
-  }, []);
+  /* Panelin görünürlüğü sarmalayıcı katmanla yönetilir (CSS geçişli) */
+  const toggleSettings = useCallback(() => setSettingsOpen((p) => !p), []);
 
   useEffect(() => {
-    const handleKeyDown = (e) => { if (e.key === "Escape") setIsFullscreen(false); };
+    const handleKeyDown = (e) => {
+      if (e.key !== "Escape") return;
+      /* ESC önce paneli, panel kapalıysa tam ekranı kapatır */
+      setSettingsOpen((acik) => {
+        if (acik) return false;
+        setIsFullscreen(false);
+        return acik;
+      });
+    };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
@@ -134,18 +138,19 @@ export default function BoatScene({ isRunning, minutes, seconds, children }) {
     controls.maxDistance = 200.0;
     controls.update();
 
-    const gui = new GUI({ title: "Sahne Ayarları" });
+    /* Ayar paneli sahnenin İÇİNE eklenir — tam ekranda da görünür kalır
+       (body'ye eklenirse tam ekran katmanının altında kalıyordu). */
+    const gui = new GUI({ title: t("Sahne Ayarları"), container: guiHostRef.current, width: 260 });
     guiRef.current = gui;
-    gui.hide();
-    const folderSky = gui.addFolder("Gökyüzü");
-    folderSky.add(parameters, "elevation", 0, 90, 0.1).name("Yükseklik").onChange(updateSun);
-    folderSky.add(parameters, "azimuth", -180, 180, 0.1).name("Yön (Azimut)").onChange(updateSun);
-    folderSky.add(parameters, "exposure", 0, 1, 0.0001).name("Pozlama").onChange((v) => { renderer.toneMappingExposure = v; });
+    const folderSky = gui.addFolder(t("Gökyüzü"));
+    folderSky.add(parameters, "elevation", 0, 90, 0.1).name(t("Güneş Yüksekliği")).onChange(updateSun);
+    folderSky.add(parameters, "azimuth", -180, 180, 0.1).name(t("Yön (Azimut)")).onChange(updateSun);
+    folderSky.add(parameters, "exposure", 0, 1, 0.0001).name(t("Pozlama")).onChange((v) => { renderer.toneMappingExposure = v; });
     folderSky.open();
     const waterUniforms = water.material.uniforms;
-    const folderWater = gui.addFolder("Su");
-    folderWater.add(waterUniforms.distortionScale, "value", 0, 8, 0.1).name("Dalga Bozulması");
-    folderWater.add(waterUniforms.size, "value", 0.1, 10, 0.1).name("Dalga Boyutu");
+    const folderWater = gui.addFolder(t("Su"));
+    folderWater.add(waterUniforms.distortionScale, "value", 0, 8, 0.1).name(t("Dalga Bozulması"));
+    folderWater.add(waterUniforms.size, "value", 0.1, 10, 0.1).name(t("Dalga Boyutu"));
     folderWater.open();
 
     let animationFrameId;
@@ -208,6 +213,17 @@ export default function BoatScene({ isRunning, minutes, seconds, children }) {
         <div className="scene-chip">
           <div className="lbl">{t("Canlı Rota")}</div>
           <div className="time">{minutes}:{seconds}</div>
+        </div>
+      </div>
+
+      {/* Sahne ayar paneli — sahnenin içinde, tam ekranda da görünür */}
+      <div ref={guiHostRef} className={"scene-gui" + (settingsOpen ? " acik" : "")}>
+        <div className="scene-gui-h">
+          <svg width="14" height="14"><use href="#i-gear" /></svg>
+          <span>{t("Sahne Ayarları")}</span>
+          <button onClick={toggleSettings} aria-label={t("Kapat")}>
+            <svg width="13" height="13"><use href="#i-x" /></svg>
+          </button>
         </div>
       </div>
 

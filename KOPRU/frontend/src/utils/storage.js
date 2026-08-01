@@ -38,6 +38,26 @@ export const Storage = {
     return data;
   },
 
+  /* Google Identity Services'ten gelen kimlik jetonuyla giriş */
+  async googleLogin(credential, remember) {
+    const res = await fetch(`${API_BASE}/auth/google`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ credential }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.detail || "Google girişi başarısız");
+
+    this.token = data.token;
+    this.user = (data.email || "").toLowerCase().trim();
+    if (remember) {
+      localStorage.setItem("kopru:token", this.token);
+      localStorage.setItem("kopru:currentUser", this.user);
+    }
+    await this._loadAll();
+    return data;
+  },
+
   logout() {
     localStorage.removeItem("kopru:token");
     localStorage.removeItem("kopru:currentUser");

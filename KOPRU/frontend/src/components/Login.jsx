@@ -1,13 +1,70 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useApp } from "../state/AppContext.jsx";
+import { GOOGLE_CLIENT_ID } from "../utils/config.js";
+
+/* Google Identity Services betiğini bir kez yükler */
+function gisYukle() {
+  if (window.google?.accounts?.id) return Promise.resolve(true);
+  if (!gisYukle._p) {
+    gisYukle._p = new Promise((resolve) => {
+      const s = document.createElement("script");
+      s.src = "https://accounts.google.com/gsi/client";
+      s.async = true;
+      s.defer = true;
+      s.onload = () => resolve(true);
+      s.onerror = () => resolve(false);
+      document.head.appendChild(s);
+    });
+  }
+  return gisYukle._p;
+}
 
 export default function Login() {
-  const { login, toast, t } = useApp();
+  const { login, loginWithGoogle, toast, t, lang } = useApp();
   const [reg, setReg] = useState(false);
   const [showPass, setShowPass] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", pass: "", remember: false });
   const [err, setErr] = useState({});
   const [busy, setBusy] = useState(false);
+  const googleRef = useRef(null);
+  const rememberRef = useRef(form.remember);
+  rememberRef.current = form.remember;
+
+  /* Google butonu — istemci kimliği tanımlıysa gerçek GIS butonu çizilir */
+  useEffect(() => {
+    if (!GOOGLE_CLIENT_ID) return;
+    let iptal = false;
+    gisYukle().then((ok) => {
+      if (!ok || iptal || !googleRef.current) return;
+      try {
+        window.google.accounts.id.initialize({
+          client_id: GOOGLE_CLIENT_ID,
+          callback: async (yanit) => {
+            setBusy(true);
+            try {
+              await loginWithGoogle(yanit.credential, rememberRef.current);
+            } catch (e) {
+              setErr({ email: e.message || t("Google girişi başarısız") });
+            } finally {
+              setBusy(false);
+            }
+          },
+        });
+        googleRef.current.innerHTML = "";
+        window.google.accounts.id.renderButton(googleRef.current, {
+          theme: "outline",
+          size: "large",
+          shape: "pill",
+          text: "continue_with",
+          width: 360,
+          locale: lang === "en" ? "en" : "tr",
+        });
+      } catch {
+        /* GIS başlatılamadıysa buton gizli kalır */
+      }
+    });
+    return () => { iptal = true; };
+  }, [loginWithGoogle, t, lang]);
 
   const submit = async (e) => {
     e.preventDefault();
@@ -91,17 +148,24 @@ export default function Login() {
         </form>
 
         <div className="login-or">{t("veya")}</div>
-        <button type="button" className="btn-google" disabled={busy} onClick={async () => {
-          setBusy(true);
-          try {
-            await login("google-kullanicisi@kopru.app", "demo-google-123", form.remember, "Google Kullanıcısı");
-          } catch {
-            try { await login("google-kullanicisi@kopru.app", "demo-google-123", form.remember, null); }
-            catch (e3) { setErr({ email: e3.message }); }
-          } finally { setBusy(false); }
-        }}>
-          <svg width="19" height="19" viewBox="0 0 24 24"><use href="#i-google" /></svg> {t("Google ile devam et")}
-        </button>
+
+        {GOOGLE_CLIENT_ID ? (
+          /* Gerçek Google girişi (Identity Services) */
+          <div className="google-host" ref={googleRef} />
+        ) : (
+          /* İstemci kimliği tanımlı değil → demo hesabıyla hızlı giriş */
+          <button type="button" className="btn-google" disabled={busy} onClick={async () => {
+            setBusy(true);
+            try {
+              await login("google-kullanicisi@kopru.app", "demo-google-123", form.remember, "Google Kullanıcısı");
+            } catch {
+              try { await login("google-kullanicisi@kopru.app", "demo-google-123", form.remember, null); }
+              catch (e3) { setErr({ email: e3.message }); }
+            } finally { setBusy(false); }
+          }}>
+            <svg width="19" height="19" viewBox="0 0 24 24"><use href="#i-google" /></svg> {t("Google ile devam et")}
+          </button>
+        )}
         <p className="login-foot">
           {reg ? t("Zaten hesabın var mı?") + " " : t("Hesabın yok mu?") + " "}
           <a onClick={() => setReg(!reg)}>{reg ? t("Giriş yap") : t("Kayıt ol")}</a>

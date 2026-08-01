@@ -18,6 +18,11 @@ class LoginIn(BaseModel):
     password: str
 
 
+class GoogleIn(BaseModel):
+    """Google Identity Services'ten dönen kimlik jetonu (JWT)."""
+    credential: str
+
+
 class AuthOut(BaseModel):
     token: str
     email: str

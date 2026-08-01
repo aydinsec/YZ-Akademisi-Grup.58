@@ -112,7 +112,15 @@ export const EN = {
   "Tam Ekran": "Fullscreen",
   "Küçült": "Minimize",
   "Canlı Rota": "Live Route",
+  "Google girişi başarısız": "Google sign-in failed",
   "Sahne Ayarları": "Scene Settings",
+  "Gökyüzü": "Sky",
+  "Güneş Yüksekliği": "Sun Elevation",
+  "Yön (Azimut)": "Direction (Azimuth)",
+  "Pozlama": "Exposure",
+  "Su": "Water",
+  "Dalga Bozulması": "Wave Distortion",
+  "Dalga Boyutu": "Wave Size",
 
   /* Ana Sayfa */
   "Günün Görevleri": "Today's Tasks",
