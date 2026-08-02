@@ -118,6 +118,96 @@ LGS, YKS, KPSS veya ALES gibi yüksek rekabetli sınavlara hazırlanan, günde o
 ### 2. Uzaktan/Hibrit Çalışan Yazılımcılar ve Dijital Profesyoneller (20-45 Yaş)
 Başta yazılım mühendisleri ve junior geliştiriciler olmak üzere, gün boyu web tarayıcısı ve kod editörleri arasında mekik dokuyan, iş akışını (flow) koruması gereken uzaktan çalışan profesyoneller.
 
+  ## 🚀 Nasıl Çalışır?
+<details>
+
+### Gereksinimler
+
+Bilgisayarınızda aşağıdakilerin kurulu olması yeterlidir:
+
+- **Python 3.10+** — [python.org](https://www.python.org/downloads/)
+- **Node.js 18+** (npm ile birlikte gelir) — [nodejs.org](https://nodejs.org/)
+
+### Kurulum ve Çalıştırma (Windows)
+
+Proje, tek tıkla kurulum yapan bir başlatıcı ile birlikte gelir.
+
+1. Bu repoyu indirin veya klonlayın.
+2. `KOPRU` klasörüne girin.
+3. **`BASLAT.bat`** dosyasına çift tıklayın.
+
+Bu işlem otomatik olarak iki pencere açar:
+
+| Pencere | Ne yapar |
+|---|---|
+| **KOPRU Backend** | Gerekli Python paketlerini kurar (`pip install -r requirements.txt`) ve API sunucusunu başlatır (`uvicorn main:app --reload`). |
+| **KOPRU Frontend** | Gerekli Node paketlerini kurar (`npm install`) ve geliştirme sunucusunu başlatır (`npm run dev`). |
+
+İlk çalıştırmada paket kurulumları birkaç dakika sürebilir; sonraki çalıştırmalarda çok daha hızlı açılır.
+
+**Frontend** penceresinde şuna benzer bir satır belirecektir:
+
+```
+Local:   http://localhost:5173/
+```
+
+Bu adresi tarayıcınızda açtığınızda uygulama kullanıma hazırdır. Uygulama ilk açıldığında kamera erişim izni isteyecektir — Odak Modu'nu kullanmak için izin vermeniz gerekir.
+
+> Kapatmak için her iki terminal penceresini kapatmanız yeterlidir.
+
+### Manuel Kurulum — Windows
+
+`BASLAT.bat`'ın perde arkasında yaptığı işlemleri elle yapmak isterseniz (örneğin hata ayıklamak için), iki ayrı Komut İstemi (CMD) veya PowerShell penceresi açarak şu adımları izleyin:
+
+**Pencere 1 — Backend:**
+```cmd
+cd KOPRU\backend
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
+
+**Pencere 2 — Frontend:**
+```cmd
+cd KOPRU\frontend
+npm install
+npm run dev
+```
+
+Frontend penceresinde çıkan adresi (genelde `http://localhost:5173`) tarayıcınızda açın. İki pencereyi de açık bırakın; kapatırsanız uygulama durur.
+
+> Not: `python` veya `pip` komutu tanınmıyorsa, Python kurulumu sırasında "Add python.exe to PATH" kutucuğunu işaretlemediğiniz anlamına gelir — Python'u kaldırıp bu seçenekle yeniden kurun ya da komutları `py -m pip install -r requirements.txt` şeklinde `py` başlatıcısıyla çalıştırın.
+
+### Manuel Kurulum (macOS / Linux veya elle çalıştırmak isteyenler için)
+
+`BASLAT.bat` yalnızca Windows'ta çalışır. Diğer işletim sistemlerinde iki terminalde ayrı ayrı çalıştırın:
+
+**Terminal 1 — Backend:**
+```bash
+cd KOPRU/backend
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
+
+**Terminal 2 — Frontend:**
+```bash
+cd KOPRU/frontend
+npm install
+npm run dev
+```
+
+Terminalde çıkan adresi (genelde `http://localhost:5173`) tarayıcınızda açın.
+
+### API Dokümantasyonu
+
+Backend çalışırken `http://127.0.0.1:8000/docs` adresinden tüm API uç noktalarını (kullanıcı, görev, balık, seans, ayarlar vb.) interaktif olarak inceleyebilir ve test edebilirsiniz.
+
+### Sorun Giderme
+
+- **"python bulunamadı" / "npm bulunamadı":** Python ve Node.js kurulu olduğundan ve kurulum sırasında "Add to PATH" seçeneğinin işaretlendiğinden emin olun.
+- **Kamera çalışmıyor:** Tarayıcının kamera iznini engellemediğinden emin olun; adres çubuğundaki kilit simgesinden kontrol edebilirsiniz.
+- **Port zaten kullanımda hatası:** Daha önce açık kalmış bir backend/frontend penceresi olabilir; tüm terminalleri kapatıp tekrar deneyin.
+
+</details>
 
 
 <details>
