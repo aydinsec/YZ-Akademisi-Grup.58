@@ -120,6 +120,7 @@ Başta yazılım mühendisleri ve junior geliştiriciler olmak üzere, gün boyu
 
 <details>
   <summary><h2> Nasıl Çalışır?</h2></summary>
+  
 ### Gereksinimler
 
 Bilgisayarınızda aşağıdakilerin kurulu olması yeterlidir:
