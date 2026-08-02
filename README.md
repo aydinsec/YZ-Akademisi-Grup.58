@@ -355,7 +355,8 @@ Sprint 2'de ayrı geliştirilen 3D pomodoro sahnesinin (Three.js) uygulamayla bi
 ## Sprint Board Son Durumu
 <div align="center">
 
-<img width="1760" height="1010" alt="Image" src="https://github.com/user-attachments/assets/095da970-57a2-46e0-b063-4666c487909a" />
+<img width="1760" height="1010" alt="Image" src="https://github.com/user-attachments/assets/8d6092e1-a2f7-4a08-9b51-ec67e24956dd" />
+
 
 </div>
 
