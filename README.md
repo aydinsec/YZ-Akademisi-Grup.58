@@ -118,9 +118,8 @@ LGS, YKS, KPSS veya ALES gibi yüksek rekabetli sınavlara hazırlanan, günde o
 ### 2. Uzaktan/Hibrit Çalışan Yazılımcılar ve Dijital Profesyoneller (20-45 Yaş)
 Başta yazılım mühendisleri ve junior geliştiriciler olmak üzere, gün boyu web tarayıcısı ve kod editörleri arasında mekik dokuyan, iş akışını (flow) koruması gereken uzaktan çalışan profesyoneller.
 
-  ## 🚀 Nasıl Çalışır?
 <details>
-
+  <summary><h2> Nasıl Çalışır?</h2></summary>
 ### Gereksinimler
 
 Bilgisayarınızda aşağıdakilerin kurulu olması yeterlidir:
