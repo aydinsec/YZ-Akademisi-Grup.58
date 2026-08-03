@@ -1,0 +1,192 @@
+/* ============================================================
+   KÖPRÜ — Ek arayüz stilleri
+   (giriş videosu, 3D sahne kaplaması, mobil uyumluluk)
+   ============================================================ */
+
+/* ---------- Giriş ekranı video arka planı ---------- */
+#loginScreen{background:#0a1a22}
+.login-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.login-video-dim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,20,28,.55),rgba(6,20,28,.15));z-index:1}
+#loginScreen .login-card{position:relative;z-index:2}
+
+/* ---------- 3D sahne (BoatScene) ---------- */
+.scene-wrap{position:relative;width:100%;height:440px;border-radius:16px;overflow:hidden;background:#000;box-shadow:var(--shadow-lg);transition:all .3s ease}
+.scene-wrap.scene-full{position:fixed;inset:0;width:100vw;height:100vh;z-index:9999;border-radius:0}
+.scene-canvas{position:absolute;inset:0;overflow:hidden}
+.scene-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.28);background:rgba(13,47,64,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#f2efe6;font-family:'Quicksand',sans-serif;font-weight:700;font-size:13px;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.35);transition:all .2s ease;user-select:none}
+.scene-btn:hover{background:rgba(13,47,64,.8)}
+.scene-tl{position:absolute;top:16px;left:16px;z-index:20}
+.scene-tr{position:absolute;top:16px;right:16px;z-index:20;display:flex;align-items:center;gap:10px}
+.scene-gear{width:38px;height:38px;padding:0;border-radius:50%;justify-content:center}
+.scene-gear.on{border-color:rgba(127,224,176,.6);color:#7fe0b0;background:rgba(127,224,176,.14)}
+.scene-chip{padding:9px 16px;border-radius:12px;background:rgba(13,47,64,.6);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.28);box-shadow:0 8px 28px rgba(0,0,0,.4);color:#f2efe6;text-align:center;user-select:none}
+.scene-chip .lbl{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#a9d3e2;margin-bottom:3px;font-weight:700}
+.scene-chip .time{font-family:'Quicksand',sans-serif;font-size:22px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+
+/* Sahne içi odak kontrolleri (alt-orta) */
+.scene-controls{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);z-index:20;display:flex;flex-direction:column;align-items:center;gap:10px;padding:14px 22px;border-radius:18px;background:rgba(13,47,64,.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.25);box-shadow:0 12px 36px rgba(0,0,0,.4);width:min(560px,92%)}
+.sc-goal{color:#dceaf1;font-size:12.5px;font-weight:600;opacity:.9}
+.sc-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.sc-break{border-color:rgba(255,255,255,.35)}
+.sc-prog{display:flex;align-items:center;gap:10px;width:100%}
+.sc-prog .bar{flex:1;height:6px;border-radius:5px;background:rgba(255,255,255,.2);overflow:hidden}
+.sc-prog .bar i{display:block;height:100%;background:#e8b76d;border-radius:5px;transition:width .5s}
+.sc-prog span{color:#f2efe6;font-size:11.5px;font-weight:700}
+
+/* lil-gui panelini sahne butonlarının altına hizala */
+.lil-gui.root{top:64px !important;right:16px !important}
+
+/* İpucu listesi geçişi */
+.tips-rotating li{animation:tipfade .5s ease}
+@keyframes tipfade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* Odak sayacı aktifken üstteki çip vurgusu */
+.session-chip.focus-on{background:var(--red-dark);box-shadow:0 6px 18px rgba(214,59,47,.4)}
+
+/* ---------- Akvaryum ---------- */
+.aq-tank{position:relative;width:100%;height:clamp(420px,64vh,660px);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg);background:#0b2d3e}
+.aq-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* Yüzme alanı: tankın cam kenarlarından içeride — balıklar buradan çıkamaz */
+.aq-swim{position:absolute;left:3.5%;right:3.5%;top:11%;bottom:12%;overflow:hidden;z-index:3}
+
+/* Şerit: tank genişliği eksi balık genişliği kadar; gidip gelir (alternate) */
+.aq-lane{position:absolute;left:0;animation-name:aqlane;animation-timing-function:ease-in-out;animation-iteration-count:infinite;animation-direction:alternate;will-change:transform}
+.aq-lane.sag{animation-direction:alternate-reverse}
+@keyframes aqlane{from{transform:translateX(0)}to{transform:translateX(100%)}}
+
+/* Balık: dikey salınım + tıklanabilir */
+.aq-fish{position:relative;display:block;padding:0;border:none;background:none;cursor:pointer;animation:aqbob var(--bobdur,3.5s) ease-in-out infinite;filter:drop-shadow(0 6px 12px rgba(0,20,30,.35))}
+.aq-fish img{height:100%;width:auto;display:block;animation-name:aqflip;animation-timing-function:steps(1,end);animation-iteration-count:infinite}
+.aq-lane.sag .aq-fish img{animation-name:aqflip-rev}
+/* Balık görselleri sola bakar; sağa yüzerken yatay çevrilir */
+@keyframes aqflip{0%{transform:scaleX(1)}50%{transform:scaleX(-1)}}
+@keyframes aqflip-rev{0%{transform:scaleX(-1)}50%{transform:scaleX(1)}}
+@keyframes aqbob{0%,100%{transform:translateY(calc(var(--bob,6px) * -1)) rotate(-1.5deg)}50%{transform:translateY(var(--bob,6px)) rotate(1.5deg)}}
+.aq-fish:hover{filter:drop-shadow(0 0 14px rgba(255,255,255,.75)) drop-shadow(0 6px 12px rgba(0,20,30,.35))}
+.aq-name{position:absolute;left:50%;bottom:-18px;transform:translateX(-50%);font-size:10.5px;font-weight:800;color:#fff;background:rgba(9,32,44,.65);backdrop-filter:blur(6px);padding:2px 8px;border-radius:7px;white-space:nowrap;opacity:0;transition:opacity .2s;pointer-events:none}
+.aq-fish:hover .aq-name{opacity:1}
+
+/* Baloncuklar */
+.aq-bubbles{position:absolute;left:6%;right:6%;top:12%;bottom:10%;overflow:hidden;pointer-events:none;z-index:2}
+.aq-bubbles span{position:absolute;bottom:-20px;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 32% 30%,rgba(255,255,255,.85),rgba(255,255,255,.18) 60%,rgba(255,255,255,.06));animation-name:aqbubble;animation-timing-function:linear;animation-iteration-count:infinite}
+@keyframes aqbubble{0%{transform:translateY(0) translateX(0);opacity:0}12%{opacity:.75}100%{transform:translateY(-560px) translateX(14px);opacity:0}}
+
+.aq-tank.paused .aq-lane,.aq-tank.paused .aq-fish,.aq-tank.paused .aq-fish img,.aq-tank.paused .aq-bubbles span{animation-play-state:paused}
+
+/* HUD ve göstergeler */
+.aq-hud{position:absolute;top:16px;left:16px;right:16px;z-index:7;display:flex;align-items:center;gap:10px}
+.aq-hud-l{display:flex;gap:10px;flex-wrap:wrap}
+.aq-chip{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:11px;background:rgba(9,32,44,.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.25);color:#f2efe6;font-family:'Quicksand',sans-serif;font-weight:700;font-size:12.5px;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.aq-btn{margin-left:auto;cursor:pointer;transition:.18s}
+.aq-btn:hover{background:rgba(9,32,44,.85)}
+.aq-legend{position:absolute;bottom:16px;left:16px;z-index:7;display:flex;gap:8px;flex-wrap:wrap}
+.aq-leg{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:9px;background:rgba(9,32,44,.5);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.18);color:#e8f2f6;font-size:11px;font-weight:700}
+.aq-leg i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.aq-leg.yaygin i{background:#7fe0b0}.aq-leg.orta i{background:#e8b76d}
+.aq-leg.nadir i{background:#8b7ce0}.aq-leg.efsanevi i{background:#ffbe50}
+.aq-leg b{color:#fff}
+
+.aq-empty{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;color:#cfe6ef;padding:24px;background:rgba(6,26,36,.35)}
+.aq-empty .t{font-family:'Quicksand',sans-serif;font-weight:700;font-size:17px;color:#fff}
+.aq-empty .d{font-size:13.5px;max-width:380px;line-height:1.55;opacity:.85}
+
+/* Seçilen balık kartı */
+.aq-card{position:absolute;left:50%;bottom:64px;transform:translateX(-50%);z-index:9;display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:16px;background:rgba(9,32,44,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.25);box-shadow:0 14px 40px rgba(0,0,0,.45);color:#f2efe6;cursor:pointer;max-width:min(420px,92%);animation:aqpop .25s ease}
+@keyframes aqpop{from{opacity:0;transform:translateX(-50%) translateY(8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+.aq-card>img{width:84px;height:64px;object-fit:contain;flex-shrink:0}
+.aq-card .nm{font-family:'Quicksand',sans-serif;font-weight:700;font-size:16px;margin-bottom:4px}
+.aq-card .noname{opacity:.6;font-style:italic}
+.aq-card .rar{margin:0 0 6px}
+.aq-card .meta{display:flex;gap:14px;font-size:12px;opacity:.85;border:none;padding:0}
+.aq-card .meta span{display:inline-flex;align-items:center;gap:5px}
+.aq-card .dots-btn{color:#cfe6ef}
+
+/* ---------- Akıllı Görev Ayrıştırıcı (YZ paneli) ---------- */
+.ai-badge{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#1d5068,#3f8f9f);color:#fff;font-size:11px;font-weight:800;padding:4px 9px;border-radius:8px;letter-spacing:.04em}
+.ai-open{display:flex;align-items:center;gap:12px;width:100%;padding:14px 18px;border-radius:var(--r);border:1.5px dashed var(--line);background:var(--card);box-shadow:var(--shadow);transition:.18s;text-align:left}
+.ai-open:hover{border-color:var(--teal);transform:translateY(-1px)}
+.ai-open-t{font-family:'Quicksand',sans-serif;font-weight:700;font-size:14.5px;color:var(--text)}
+.ai-open-c{margin-left:auto;color:var(--muted2)}
+.ai-panel{overflow:hidden}
+.ai-body{padding:6px 20px 20px}
+.ai-hint{color:var(--muted);font-size:13px;margin-bottom:10px}
+.ai-textarea{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:13px 15px;font-family:inherit;font-size:14px;line-height:1.6;background:var(--card);color:var(--text);outline:none;resize:vertical;min-height:96px}
+.ai-textarea:focus{border-color:var(--teal)}
+.ai-actions{display:flex;align-items:center;gap:12px;margin-top:12px;flex-wrap:wrap}
+.ai-spin{width:13px;height:13px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;display:inline-block;animation:aispin .7s linear infinite}
+@keyframes aispin{to{transform:rotate(360deg)}}
+.ai-warn{display:flex;align-items:flex-start;gap:9px;margin-top:12px;padding:11px 14px;border-radius:11px;background:var(--orange-soft);color:var(--orange);font-size:12.5px;font-weight:600}
+.ai-result{margin-top:18px;border-top:1px solid var(--line-soft);padding-top:14px}
+.ai-result-h{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);margin-bottom:12px;flex-wrap:wrap}
+.ai-engine{margin-left:auto;font-size:11px;font-weight:800;padding:3px 10px;border-radius:7px;background:var(--line-soft);color:var(--muted)}
+.ai-engine.llm{background:var(--green-soft);color:var(--green)}
+.ai-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line-soft);flex-wrap:wrap}
+.ai-row:last-of-type{border-bottom:none}
+.ai-name{flex:1;min-width:180px;border:1px solid var(--line);border-radius:9px;padding:9px 12px;font-size:13.5px;font-weight:600;background:var(--card);color:var(--text);outline:none}
+.ai-name:focus{border-color:var(--teal)}
+.ai-sel select{padding:8px 30px 8px 11px;font-size:12.5px;border-radius:9px}
+.ai-sel::after{right:12px}
+.ai-dur{width:62px;border:1px solid var(--line);border-radius:9px;padding:9px 8px;font-size:12.5px;text-align:center;background:var(--card);color:var(--text);outline:none}
+.ai-dk{font-size:12px;color:var(--muted);margin-left:-4px}
+.ai-footer{display:flex;justify-content:flex-end;gap:12px;margin-top:16px}
+
+/* ---------- Mobil uyumluluk ---------- */
+@media (max-width: 1100px){
+  #page-focus{grid-template-columns:1fr !important}
+  #page-tasks{grid-template-columns:1fr !important}
+  .catch-hero{grid-template-columns:1fr !important}
+  .catch-hero img.ph{max-height:200px;object-fit:cover}
+  .prof-head{grid-template-columns:1fr !important}
+  #page-tasks > div[style]{padding-top:0 !important}
+}
+@media (max-width: 900px){
+  #app{flex-direction:column}
+  .sidebar{position:static;width:100%;height:auto;flex-direction:column;border-right:none;border-bottom:1px solid var(--line)}
+  .side-logo{flex-direction:row;gap:10px;padding:14px 16px 8px}
+  .side-logo img{height:36px;margin-bottom:0}
+  .nav{flex-direction:row;overflow-x:auto;padding:0 10px 10px;gap:4px}
+  .nav button{white-space:nowrap;padding:9px 12px;font-size:13px}
+  .side-sea{display:none}
+  .topbar{flex-wrap:wrap;padding:18px 16px 6px;gap:10px}
+  .topbar h1{font-size:21px}
+  .top-boat{display:none}
+  .page{padding:10px 16px 30px}
+  .home-grid{grid-template-columns:1fr !important}
+  .stat-cards{grid-template-columns:repeat(2,1fr)}
+  .fish-grid{grid-template-columns:repeat(2,1fr)}
+  #page-stats .grid2,#page-settings .grid2,#page-profile .grid2{grid-template-columns:1fr}
+  .hero{grid-template-columns:1fr}
+  .hero .art{display:none}
+  .journey{grid-template-columns:repeat(2,1fr)}
+  .jitem{border-right:none}
+  .badges{grid-template-columns:repeat(3,1fr)}
+  .catch-stats{grid-template-columns:repeat(2,1fr);gap:14px}
+  .catch-stat{border-right:none}
+  .notif-menu{right:16px;left:16px;width:auto}
+  .scene-wrap{height:380px}
+  .login-card{margin:0 auto;padding:36px 26px 30px}
+}
+@media (max-width: 560px){
+  .stat-cards{grid-template-columns:1fr}
+  .fish-grid{grid-template-columns:1fr}
+  .badges{grid-template-columns:repeat(2,1fr)}
+  .presets{padding:14px 16px 18px}
+  .hero .clock{font-size:52px}
+  .session-chip .time{font-size:16px}
+  .session-chip{padding:8px 12px}
+  .top-actions{width:100%;justify-content:flex-end}
+  .scene-wrap{height:330px}
+  .scene-controls{padding:10px 12px;gap:8px}
+  .scene-tl{top:10px;left:10px}
+  .scene-tr{top:10px;right:10px}
+  .tabs{gap:18px;overflow-x:auto}
+  .catch-toolbar .searchbox{width:100%}
+  .ai-row{gap:6px}
+  .ai-name{min-width:100%}
+  .ai-sel select{padding:7px 26px 7px 9px;font-size:12px}
+  .aq-tank{height:56vh;min-height:340px}
+  .aq-card{bottom:56px;padding:10px 12px;gap:10px}
+  .aq-card>img{width:56px;height:56px}
+  .aq-legend{gap:5px;bottom:10px;left:10px}
+  .aq-leg{padding:5px 8px;font-size:10px}
+}
